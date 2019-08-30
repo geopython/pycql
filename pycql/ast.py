@@ -46,6 +46,12 @@ class Node(object):
         """
         raise NotImplementedError
 
+    def __eq__(self, other):
+        if type(self) != type(other):
+            return False
+
+        return self.__dict__ == other.__dict__
+
 
 class ConditionNode(Node):
     """ The base class for all nodes representing a condition

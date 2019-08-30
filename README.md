@@ -18,7 +18,6 @@ ast = pycql.parse(filter_expression)
 
 ## Testing
 
-
 ```bash
-pytest
+python -m pytest
 ```
