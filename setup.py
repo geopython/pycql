@@ -60,6 +60,7 @@ setup(
     version=version,
     description='CQL parser for Python',
     long_description=readme,
+    long_description_content_type="text/markdown",
     author='Fabian Schindler',
     author_email='fabian.schindler@gmail.com',
     url='https://github.com/constantinius/pycql',  # TODO
