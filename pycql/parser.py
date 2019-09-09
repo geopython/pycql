@@ -29,16 +29,22 @@ import threading
 
 from ply import yacc
 
-from .lexer import ECQLLexer
+from .lexer import CQLLexer
 from . import ast
+from . import values
 
 
-class ECQLParser(object):
-    def __init__(self):
-        self.lexer = ECQLLexer(
-            optimize=True,
+class CQLParser(object):
+    def __init__(self, geometry_factory=values.Geometry, bbox_factory=values.BBox,
+                 time_factory=values.Time, duration_factory=values.Duration):
+        self.lexer = CQLLexer(
             # lextab='ecql.lextab',
             # outputdir="ecql"
+            geometry_factory,
+            bbox_factory,
+            time_factory,
+            duration_factory,
+            optimize=True,
         )
 
         self.lexer.build()
@@ -270,14 +276,27 @@ class ECQLParser(object):
 
 
 __parser_lock = threading.Lock()
-__parser = ECQLParser()
+__parser = CQLParser()
 
 
-def parse(cql):
+def parse(cql, geometry_factory=values.Geometry, bbox_factory=values.BBox,
+          time_factory=values.Time, duration_factory=values.Duration):
     """ Parses the passed CQL to its AST interpretation. It uses the global
         parser Object
     """
-    with __parser_lock:
-        result = __parser.parse(cql)
-        __parser.restart()
-        return result
+    # with __parser_lock:
+    #     result = __parser.parse(cql,
+    #         geometry_factory,
+    #         bbox_factory,
+    #         time_factory,
+    #         duration_factory,
+    #     )
+    #     __parser.restart()
+    #     return result
+    parser = CQLParser(
+        geometry_factory,
+        bbox_factory,
+        time_factory,
+        duration_factory
+    )
+    return parser.parse(cql)

@@ -32,9 +32,15 @@ from ply.lex import TOKEN
 from . import values
 
 
-class ECQLLexer(object):
-    def __init__(self, **kwargs):
+class CQLLexer(object):
+    def __init__(self, geometry_factory=values.Geometry, bbox_factory=values.BBox,
+                 time_factory=values.Time, duration_factory=values.Duration, **kwargs):
+
         self.lexer = lex.lex(object=self, **kwargs)
+        self.geometry_factory = geometry_factory
+        self.bbox_factory = bbox_factory
+        self.time_factory = time_factory
+        self.duration_factory = duration_factory
 
     def build(self, **kwargs):
         pass
@@ -82,7 +88,7 @@ class ECQLLexer(object):
 
     identifier_pattern = r'[a-zA-Z_$][0-9a-zA-Z_$]*'
 
-    int_pattern = r'[0-9]+'
+    int_pattern = r'-?[0-9]+'
     # float_pattern = r'(?:[0-9]+[.][0-9]*|[.][0-9]+)(?:[Ee][-+]?[0-9]+)?'
     float_pattern = r'[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?'
 
@@ -157,7 +163,7 @@ class ECQLLexer(object):
 
     @TOKEN(geometry_pattern)
     def t_GEOMETRY(self, t):
-        t.value = GEOSGeometry(t.value)
+        t.value = self.geometry_factory(t.value)
         return t
 
     @TOKEN(envelope_pattern)
@@ -166,7 +172,7 @@ class ECQLLexer(object):
             float(number) for number in
             t.value.partition('(')[2].partition(')')[0].split()
         ]
-        t.value = values.BBox(bbox)
+        t.value = self.bbox_factory(bbox)
         return t
 
     @TOKEN(r'(feet)|(meters)|(statute miles)|(nautical miles)|(kilometers)')
@@ -175,12 +181,12 @@ class ECQLLexer(object):
 
     @TOKEN(time_pattern)
     def t_TIME(self, t):
-        t.value = values.Time(t.value)
+        t.value = self.time_factory(t.value)
         return t
 
     @TOKEN(duration_pattern)
     def t_DURATION(self, t):
-        t.value = values.Duration(t.value)
+        t.value = self.duration_factory(t.value)
         return t
 
     @TOKEN(float_pattern)
