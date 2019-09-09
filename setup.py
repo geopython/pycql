@@ -9,7 +9,7 @@ on_rtd = os.environ.get('READTHEDOCS') == 'True'
 
 # get version number
 # from https://github.com/mapbox/rasterio/blob/master/setup.py#L55
-with open(os.path.join(__file__, 'pycql/__init__.py')) as f:
+with open(os.path.join(os.path.dirname(__file__), 'pycql/__init__.py')) as f:
     for line in f:
         if line.find("__version__") >= 0:
             version = line.split("=")[1].strip()
