@@ -1,5 +1,7 @@
 # pycql
 
+[![Build Status](https://travis-ci.org/EOxServer/pycql.svg?branch=master)](https://travis-ci.org/EOxServer/pycql)
+
 A pure python CQL parser.
 
 ## Installation
