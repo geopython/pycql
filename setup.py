@@ -63,11 +63,10 @@ setup(
     long_description_content_type="text/markdown",
     author='Fabian Schindler',
     author_email='fabian.schindler@gmail.com',
-    url='https://github.com/constantinius/pycql',  # TODO
+    url='https://github.com/EOxServer/pycql',
     license='MIT',
     packages=find_packages(),
     package_dir={'static': 'static'},
-    package_data={'.static': ['*']}, # TODO
     install_requires=parse_requirements('requirements.txt') if not on_rtd else [],
     classifiers=[
         'Development Status :: 3 - Alpha',
