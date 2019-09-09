@@ -1,10 +1,10 @@
 # ------------------------------------------------------------------------------
 #
-# Project: pycql <http://github.com/constantinius/pycql>
+# Project: pycql <http://github.com/EOxServer/pycql>
 # Authors: Fabian Schindler <fabian.schindler@eox.at>
 #
 # ------------------------------------------------------------------------------
-# Copyright (C) 2017 EOX IT Services GmbH
+# Copyright (C) 2019 EOX IT Services GmbH
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -168,6 +168,40 @@ def test_attribute_is_not_null():
     )
 
 # Temporal predicate
+
+# def test_attribute_before():
+#     ast = parse('attr BEFORE 2000-01-01T00:00:01Z')
+#     assert ast == TemporalPredicateNode(
+#         AttributeExpression('attr'),
+#         None,
+#         '',
+#     )
+
+# def test_attribute_before_or_during_dt_dt():
+#     ast = parse('attr BEFORE OR DURING 2000-01-01T00:00:00Z / 2000-01-01T00:00:01Z')
+#     assert ast == TemporalPredicateNode(
+#         AttributeExpression('attr'),
+#         None,
+#         '',
+#     )
+
+# def test_attribute_before_or_during_dt_dr():
+#     ast = parse('attr BEFORE OR DURING 2000-01-01T00:00:00Z / PT4S')
+#     assert ast == TemporalPredicateNode(
+#         AttributeExpression('attr'),
+#         None,
+#         '',
+#     )
+
+# def test_attribute_before_or_during_dr_dt():
+#     ast = parse('attr BEFORE OR DURING PT4S / 2000-01-01T00:00:03Z')
+#     assert ast == TemporalPredicateNode(
+#         AttributeExpression('attr'),
+#         None,
+#         '',
+#     )
+
+
 
 # Spatial predicate
 

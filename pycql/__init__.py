@@ -1,10 +1,10 @@
 # ------------------------------------------------------------------------------
 #
-# Project: pycql <http://github.com/constantinius/pycql>
+# Project: pycql <http://github.com/EOxServer/pycql>
 # Authors: Fabian Schindler <fabian.schindler@eox.at>
 #
 # ------------------------------------------------------------------------------
-# Copyright (C) 2017 EOX IT Services GmbH
+# Copyright (C) 2019 EOX IT Services GmbH
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
