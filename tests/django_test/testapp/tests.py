@@ -25,7 +25,6 @@
 # THE SOFTWARE.
 # ------------------------------------------------------------------------------
 
-from dateutil.parser import parse
 from django.test import TransactionTestCase
 from django.db.models import ForeignKey
 from django.contrib.gis.geos import Polygon, MultiPolygon, GEOSGeometry
