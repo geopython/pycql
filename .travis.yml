@@ -9,10 +9,13 @@ python:
   - "3.8-dev"  # 3.8 development branch
   - "nightly"  # nightly build
 # command to install dependencies
-install:
+before_install:
+  - sudo apt-get install -y binutils libproj-dev gdal-bin libsqlite3-mod-spatialite
   - pip install -r requirements.txt
   - pip install -r requirements-test.txt
+install:
+  - pip install .
 # command to run tests
 script:
   - pytest
-  - cd django_test ; python manage.py test testapp
+  - cd tests/django_test ; python manage.py test testapp
