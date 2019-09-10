@@ -36,13 +36,17 @@ class _Value:
         return self.value == other.value
 
 class Geometry(_Value):
-    pass
+    def __repr__(self):
+        return "GEOMETRY '%s'" % self.value
 
 class Time(_Value):
-    pass
+    def __repr__(self):
+        return "TIME '%s'" % self.value
 
 class Duration(_Value):
-    pass
+    def __repr__(self):
+        return "DURATION '%s'" % self.value
 
 class BBox(_Value):
-    pass
+    def __repr__(self):
+        return "BBOX '%s'" % self.value
