@@ -28,7 +28,13 @@
 
 from . import filters
 from ...parser import parse
-from ...ast import *
+from ...ast import (
+    NotConditionNode, CombinationConditionNode, ComparisonPredicateNode,
+    BetweenPredicateNode, BetweenPredicateNode, LikePredicateNode,
+    InPredicateNode, NullPredicateNode, TemporalPredicateNode,
+    SpatialPredicateNode, BBoxPredicateNode, AttributeExpression,
+    LiteralExpression, ArithmeticExpressionNode,
+)
 
 
 class FilterEvaluator(object):
