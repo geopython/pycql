@@ -41,7 +41,12 @@ RE_ISO_8601 = re.compile(
 
 def parse_duration(value):
     """ Parses an ISO 8601 duration string into a python timedelta object.
-        Raises a `ValueError` if a conversion was not possible.
+        Raises a ``ValueError`` if a conversion was not possible.
+
+        :param value: the ISO8601 duration string to parse
+        :type value: str
+        :return: the parsed duration
+        :rtype: datetime.datetime
     """
 
     match = RE_ISO_8601.match(value)
