@@ -40,6 +40,7 @@ release = '0.0.3'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.intersphinx',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -175,3 +176,9 @@ epub_exclude_files = ['search.html']
 
 
 # -- Extension configuration -------------------------------------------------
+
+
+intersphinx_mapping = {
+    'python': ('http://python.readthedocs.org/en/latest/', None),
+    'django': ('http://django.readthedocs.org/en/latest/', None),
+}

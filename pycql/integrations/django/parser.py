@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------------
 #
-# Project: pycql <http://github.com/EOxServer/pycql>
+# Project: pycql <https://github.com/EOxServer/pycql>
 # Authors: Fabian Schindler <fabian.schindler@eox.at>
 #
 # ------------------------------------------------------------------------------
@@ -25,43 +25,23 @@
 # THE SOFTWARE.
 # ------------------------------------------------------------------------------
 
-import re
-from datetime import timedelta
+from django.contrib.gis.geos import Polygon, MultiPolygon, GEOSGeometry
+from django.utils.dateparse import parse_datetime
 
-RE_ISO_8601 = re.compile(
-    r"^(?P<sign>[+-])?P"
-    r"(?:(?P<years>\d+(\.\d+)?)Y)?"
-    r"(?:(?P<months>\d+(\.\d+)?)M)?"
-    r"(?:(?P<days>\d+(\.\d+)?)D)?"
-    r"T?(?:(?P<hours>\d+(\.\d+)?)H)?"
-    r"(?:(?P<minutes>\d+(\.\d+)?)M)?"
-    r"(?:(?P<seconds>\d+(\.\d+)?)S)?$"
-)
+from ...parser import parse as _plain_parse
+from ...util import parse_duration
 
 
-def parse_duration(value):
-    """ Parses an ISO 8601 duration string into a python timedelta object.
-        Raises a ``ValueError`` if a conversion was not possible.
+def parse(cql):
+    """ Shorthand for the :func:`pycql.parser.parse` function with
+        the required factories set up.
 
-        :param value: the ISO8601 duration string to parse
-        :type value: str
-        :return: the parsed duration
-        :rtype: datetime.timedelta
+        :param cql: the CQL expression string to parse
+        :type cql: str
+        :return: the parsed CQL expression as an AST
+        :rtype: ~pycql.ast.Node 
     """
-
-    match = RE_ISO_8601.match(value)
-    if not match:
-        raise ValueError(
-            "Could not parse ISO 8601 duration from '%s'." % value
-        )
-    match = match.groupdict()
-
-    sign = -1 if "-" == match['sign'] else 1
-    days = float(match['days'] or 0)
-    days += float(match['months'] or 0) * 30  # ?!
-    days += float(match['years'] or 0) * 365  # ?!
-    fsec = float(match['seconds'] or 0)
-    fsec += float(match['minutes'] or 0) * 60
-    fsec += float(match['hours'] or 0) * 3600
-
-    return sign * timedelta(days, fsec)
+    return _plain_parse(
+        cql, GEOSGeometry, Polygon.from_bbox, parse_datetime,
+        parse_duration
+    )

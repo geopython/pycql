@@ -193,14 +193,12 @@ functions to parse the timestamps, durations, geometries and envelopes, so that 
 with the ORM layer:
 
 ```python
-from pycql.integrations.django import to_filter
+from pycql.integrations.django import to_filter, parse
 
 cql_expr = 'strMetaAttribute LIKE "%parent%" AND datetimeAttribute BEFORE 2000-01-01T00:00:01Z'
 
-ast = pycql.parse(
-    cql_expr, GEOSGeometry, Polygon.from_bbox, parse_datetime,
-    parse_duration
-)
+# NOTE: we are using the django integration `parse` wrapper here
+ast = parse(cql_expr)
 filters = to_filter(ast, mapping, mapping_choices)
 
 qs = Record.objects.filter(**filters)

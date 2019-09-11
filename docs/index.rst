@@ -5,7 +5,10 @@ Welcome to pycql's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   api
+   introduction
+   installation
+   usage
+   api/index
 
 Indices and tables
 ==================

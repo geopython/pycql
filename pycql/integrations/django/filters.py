@@ -54,7 +54,7 @@ def combine(sub_filters, combinator="AND"):
 
         :param sub_filters: the filters to combine
         :param combinator: a string: "AND" / "OR"
-        :type sub_filters: ``list`` of :class:`django.db.models.Q` objects
+        :type sub_filters: list[django.db.models.Q]
         :return: the combined filter
         :rtype: :class:`django.db.models.Q`
     """
@@ -91,13 +91,15 @@ def compare(lhs, rhs, op, mapping_choices=None):
     """ Compare a filter with an expression using a comparison operation
 
         :param lhs: the field to compare
+        :type lhs: :class:`django.db.models.F`
         :param rhs: the filter expression
+        :type rhs: :class:`django.db.models.F`
         :param op: a string denoting the operation. one of ``"<"``, ``"<="``,
                    ``">"``, ``">="``, ``"<>"``, ``"="``
+        :type op: str
         :param mapping_choices: a dict to lookup potential choices for a certain
                                 field.
-        :type lhs: :class:`django.db.models.F`
-        :type rhs: :class:`django.db.models.F`
+        :type mapping_choices: dict[str, str]
         :return: a comparison expression object
         :rtype: :class:`django.db.models.Q`
     """
@@ -128,11 +130,14 @@ def between(lhs, low, high, not_=False):
         range.
 
         :param lhs: the field to compare
+        :type lhs: :class:`django.db.models.F`
         :param low: the lower value of the range
+        :type low:
         :param high: the upper value of the range
+        :type high:
         :param not_: whether the range shall be inclusive (the default) or
                      exclusive
-        :type lhs: :class:`django.db.models.F`
+        :type not_: bool
         :return: a comparison expression object
         :rtype: :class:`django.db.models.Q`
     """
@@ -149,15 +154,18 @@ def like(lhs, rhs, case=False, not_=False, mapping_choices=None):
         wildcard expressions.
 
         :param lhs: the field to compare
+        :type lhs: :class:`django.db.models.F`
         :param rhs: the wildcard pattern: a string containing any number of '%'
                     characters as wildcards.
+        :type rhs: str
         :param case: whether the lookup shall be done case sensitively or not
+        :type case: bool
         :param not_: whether the range shall be inclusive (the default) or
                      exclusive
+        :type not_: bool
         :param mapping_choices: a dict to lookup potential choices for a certain
                                 field.
-        :type lhs: :class:`django.db.models.F`
-        :type rhs: str
+        :type mapping_choices: dict[str, str]
         :return: a comparison expression object
         :rtype: :class:`django.db.models.Q`
     """
@@ -237,13 +245,15 @@ def contains(lhs, items, not_=False, mapping_choices=None):
     """ Create a filter to match elements attribute to be in a list of choices.
 
         :param lhs: the field to compare
+        :type lhs: :class:`django.db.models.F`
         :param items: a list of choices
+        :type items: list
         :param not_: whether the range shall be inclusive (the default) or
                      exclusive
+        :type not_: bool
         :param mapping_choices: a dict to lookup potential choices for a certain
                                 field.
-        :type lhs: :class:`django.db.models.F`
-        :type items: list
+        :type mapping_choices: dict[str, str]
         :return: a comparison expression object
         :rtype: :class:`django.db.models.Q`
     """
@@ -273,9 +283,10 @@ def null(lhs, not_=False):
     """ Create a filter to match elements whose attribute is (not) null
 
         :param lhs: the field to compare
+        :type lhs: :class:`django.db.models.F`
         :param not_: whether the range shall be inclusive (the default) or
                      exclusive
-        :type lhs: :class:`django.db.models.F`
+        :type not_: bool
         :return: a comparison expression object
         :rtype: :class:`django.db.models.Q`
     """
@@ -287,13 +298,15 @@ def temporal(lhs, time_or_period, op):
     """ Create a temporal filter for the given temporal attribute.
 
         :param lhs: the field to compare
-        :param time_or_period: the time instant or time span to use as a filter
-        :param op: the comparison operation. one of "BEFORE", "BEFORE OR DURING",
-                   "DURING", "DURING OR AFTER", "AFTER".
         :type lhs: :class:`django.db.models.F`
+        :param time_or_period: the time instant or time span to use as a filter
         :type time_or_period: :class:`datetime.datetime` or a tuple of two
                               datetimes or a tuple of one datetime and one
                               :class:`datetime.timedelta`
+        :param op: the comparison operation. one of ``"BEFORE"``,
+                   ``"BEFORE OR DURING"``, ``"DURING"``, ``"DURING OR AFTER"``,
+                   ``"AFTER"``.
+        :type op: str
         :return: a comparison expression object
         :rtype: :class:`django.db.models.Q`
     """
@@ -389,15 +402,21 @@ def spatial(lhs, rhs, op, pattern=None, distance=None, units=None):
     """ Create a spatial filter for the given spatial attribute.
 
         :param lhs: the field to compare
-        :param rhs: the time instant or time span to use as a filter
-        :param op: the comparison operation. one of "INTERSECTS", "DISJOINT",
-                   "CONTAINS", "WITHIN", "TOUCHES", "CROSSES", "OVERLAPS",
-                   "EQUALS", "RELATE", "DWITHIN", "BEYOND"
-        :param pattern: the spatial relation pattern
-        :param distance: the distance value for distance based lookups:
-                         "DWITHIN" and "BEYOND"
-        :param units: the units the distance is expressed in
         :type lhs: :class:`django.db.models.F`
+        :param rhs: the time instant or time span to use as a filter
+        :type rhs:
+        :param op: the comparison operation. one of ``"INTERSECTS"``,
+                   ``"DISJOINT"``, `"CONTAINS"``, ``"WITHIN"``,
+                   ``"TOUCHES"``, ``"CROSSES"``, ``"OVERLAPS"``,
+                   ``"EQUALS"``, ``"RELATE"``, ``"DWITHIN"``, ``"BEYOND"``
+        :type op: str
+        :param pattern: the spatial relation pattern
+        :type pattern: str
+        :param distance: the distance value for distance based lookups:
+                         ``"DWITHIN"`` and ``"BEYOND"``
+        :type distance: float
+        :param units: the units the distance is expressed in
+        :type units: str
         :return: a comparison expression object
         :rtype: :class:`django.db.models.Q`
     """
@@ -433,10 +452,15 @@ def bbox(lhs, minx, miny, maxx, maxy, crs=None, bboverlaps=True):
 
         :param lhs: the field to compare
         :param minx: the lower x part of the bbox
+        :type minx: float
         :param miny: the lower y part of the bbox
+        :type miny: float
         :param maxx: the upper x part of the bbox
+        :type maxx: float
         :param maxy: the upper y part of the bbox
+        :type maxy: float
         :param crs: the CRS the bbox is expressed in
+        :type crs: str
         :type lhs: :class:`django.db.models.F`
         :return: a comparison expression object
         :rtype: :class:`django.db.models.Q`
@@ -457,7 +481,9 @@ def attribute(name, field_mapping=None):
     """ Create an attribute lookup expression using a field mapping dictionary.
 
         :param name: the field filter name
+        :type name: str
         :param field_mapping: the dictionary to use as a lookup.
+        :type mapping_choices: dict[str, str]
         :rtype: :class:`django.db.models.F`
     """
     if field_mapping:
@@ -485,7 +511,7 @@ def arithmetic(lhs, rhs, op):
         :param lhs: left hand side of the arithmetic expression. either a scalar
                     or a field lookup or another type of expression
         :param rhs: same as `lhs`
-        :param op: the arithmetic operation. one of "+", "-", "*", "/"
+        :param op: the arithmetic operation. one of ``"+"``, ``"-"``, ``"*"``, ``"/"``
         :rtype: :class:`django.db.models.F`
     """
 

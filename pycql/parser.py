@@ -25,8 +25,6 @@
 # THE SOFTWARE.
 # ------------------------------------------------------------------------------
 
-import threading
-
 from ply import yacc
 
 from .lexer import CQLLexer
@@ -275,24 +273,25 @@ class CQLParser(object):
             print("Syntax error at EOF")
 
 
-__parser_lock = threading.Lock()
-__parser = CQLParser()
-
-
 def parse(cql, geometry_factory=values.Geometry, bbox_factory=values.BBox,
           time_factory=values.Time, duration_factory=values.Duration):
-    """ Parses the passed CQL to its AST interpretation. It uses the global
-        parser Object
+    """ Parses the passed CQL to its AST interpretation. 
+
+        :param cql: the CQL expression string to parse
+        :type cql: str
+        :param geometry_factory: the geometry parsing function: it shall parse
+                                 the given WKT geometry string the relevant type
+        :param bbox_factory: the bbox parsing function: it shall parse
+                             the given BBox tuple the relevant type.
+        :param time_factory: the timestamp parsing function: it shall parse
+                             the given ISO8601 timestamp string tuple the relevant
+                             type.
+        :param duration_factory: the duration parsing function: it shall parse
+                                 the given ISO8601 furation string tuple the relevant
+                                 type.
+        :return: the parsed CQL expression as an AST
+        :rtype: ~pycql.ast.Node
     """
-    # with __parser_lock:
-    #     result = __parser.parse(cql,
-    #         geometry_factory,
-    #         bbox_factory,
-    #         time_factory,
-    #         duration_factory,
-    #     )
-    #     __parser.restart()
-    #     return result
     parser = CQLParser(
         geometry_factory,
         bbox_factory,

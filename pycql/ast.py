@@ -361,8 +361,8 @@ class AttributeExpression(ExpressionNode):
 class LiteralExpression(ExpressionNode):
     """ Node class to represent literal value expressions
 
-        :ivar name: the value of the literal
-        :type name: str, float, int, datetime, timedelta
+        :ivar value: the value of the literal
+        :type value: str, float, int, datetime, timedelta
     """
     inline = True
 
