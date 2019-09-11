@@ -1,6 +1,8 @@
 # pycql
 
 [![Build Status](https://travis-ci.org/EOxServer/pycql.svg?branch=master)](https://travis-ci.org/EOxServer/pycql)
+[![Documentation Status](https://readthedocs.org/projects/pycql/badge/?version=latest)](https://pycql.readthedocs.io/en/latest/?badge=latest)
+
 
 A pure python CQL parser.
 
