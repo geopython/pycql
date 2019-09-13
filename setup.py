@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------------
 #
-# Project: pycql <http://github.com/EOxServer/pycql>
+# Project: pycql <http://github.com/geopython/pycql>
 # Authors: Fabian Schindler <fabian.schindler@eox.at>
 #
 # ------------------------------------------------------------------------------
@@ -63,7 +63,7 @@ setup(
     long_description_content_type="text/markdown",
     author='Fabian Schindler',
     author_email='fabian.schindler@gmail.com',
-    url='https://github.com/EOxServer/pycql',
+    url='https://github.com/geopython/pycql',
     license='MIT',
     packages=find_packages(),
     package_dir={'static': 'static'},

@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------------
 #
-# Project: pycql <https://github.com/EOxServer/pycql>
+# Project: pycql <https://github.com/geopython/pycql>
 # Authors: Fabian Schindler <fabian.schindler@eox.at>
 #
 # ------------------------------------------------------------------------------
