@@ -28,4 +28,4 @@
 from .parser import parse
 from .ast import get_repr
 
-__version__ = '0.0.4'
+__version__ = '0.0.5'
