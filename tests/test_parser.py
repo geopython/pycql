@@ -207,6 +207,27 @@ def test_attribute_is_not_null():
 
 # BBox prediacte
 
+def test_bbox_simple():
+    ast = parse('BBOX(geometry, 1, 2, 3, 4)')
+    assert ast == BBoxPredicateNode(
+        AttributeExpression('geometry'),
+        LiteralExpression(1),
+        LiteralExpression(2),
+        LiteralExpression(3),
+        LiteralExpression(4),
+    )
+
+def test_bbox_crs():
+    ast = parse('BBOX(geometry, 1, 2, 3, 4, "EPSG:3875")')
+    assert ast == BBoxPredicateNode(
+        AttributeExpression('geometry'),
+        LiteralExpression(1),
+        LiteralExpression(2),
+        LiteralExpression(3),
+        LiteralExpression(4),
+        'EPSG:3875',
+    )
+
 def test_attribute_arithmetic_add():
     ast = parse('attr = 5 + 2')
     assert ast == ComparisonPredicateNode(

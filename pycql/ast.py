@@ -320,7 +320,7 @@ class BBoxPredicateNode(PredicateNode):
                    for the CRS the BBox is expressed in
         :type crs: str
     """
-    def __init__(self, lhs, minx, miny, maxx, maxy, crs):
+    def __init__(self, lhs, minx, miny, maxx, maxy, crs=None):
         self.lhs = lhs
         self.minx = minx
         self.miny = miny

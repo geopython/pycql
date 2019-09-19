@@ -56,73 +56,74 @@ Rule 42    spatial_predicate -> EQUALS LPAREN expression COMMA expression RPAREN
 Rule 43    spatial_predicate -> RELATE LPAREN expression COMMA expression COMMA QUOTED RPAREN
 Rule 44    spatial_predicate -> DWITHIN LPAREN expression COMMA expression COMMA number COMMA UNITS RPAREN
 Rule 45    spatial_predicate -> BEYOND LPAREN expression COMMA expression COMMA number COMMA UNITS RPAREN
-Rule 46    spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN
-Rule 47    expression_list -> expression_list COMMA expression
-Rule 48    expression_list -> expression
-Rule 49    expression -> expression PLUS expression
-Rule 50    expression -> expression MINUS expression
-Rule 51    expression -> expression TIMES expression
-Rule 52    expression -> expression DIVIDE expression
-Rule 53    expression -> LPAREN expression RPAREN
-Rule 54    expression -> LBRACKET expression RBRACKET
-Rule 55    expression -> GEOMETRY
-Rule 56    expression -> ENVELOPE
-Rule 57    expression -> attribute
-Rule 58    expression -> QUOTED
-Rule 59    expression -> INTEGER
-Rule 60    expression -> FLOAT
-Rule 61    number -> INTEGER
-Rule 62    number -> FLOAT
-Rule 63    attribute -> ATTRIBUTE
-Rule 64    empty -> <empty>
+Rule 46    spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number RPAREN
+Rule 47    spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN
+Rule 48    expression_list -> expression_list COMMA expression
+Rule 49    expression_list -> expression
+Rule 50    expression -> expression PLUS expression
+Rule 51    expression -> expression MINUS expression
+Rule 52    expression -> expression TIMES expression
+Rule 53    expression -> expression DIVIDE expression
+Rule 54    expression -> LPAREN expression RPAREN
+Rule 55    expression -> LBRACKET expression RBRACKET
+Rule 56    expression -> GEOMETRY
+Rule 57    expression -> ENVELOPE
+Rule 58    expression -> attribute
+Rule 59    expression -> QUOTED
+Rule 60    expression -> INTEGER
+Rule 61    expression -> FLOAT
+Rule 62    number -> INTEGER
+Rule 63    number -> FLOAT
+Rule 64    attribute -> ATTRIBUTE
+Rule 65    empty -> <empty>
 
 Terminals, with rules where they appear
 
 AFTER                : 30 31
 AND                  : 4 15 16
-ATTRIBUTE            : 63
-BBOX                 : 46
+ATTRIBUTE            : 64
+BBOX                 : 46 47
 BEFORE               : 27 28
 BETWEEN              : 15 16
 BEYOND               : 45
-COMMA                : 35 36 37 38 39 40 41 42 43 43 44 44 44 45 45 45 46 46 46 46 46 47
+COMMA                : 35 36 37 38 39 40 41 42 43 43 44 44 44 45 45 45 46 46 46 46 47 47 47 47 47 48
 CONTAINS             : 37
 CROSSES              : 40
 DISJOINT             : 36
-DIVIDE               : 32 33 34 52
+DIVIDE               : 32 33 34 53
 DURATION             : 33 34
 DURING               : 28 29 30
 DWITHIN              : 44
-ENVELOPE             : 56
+ENVELOPE             : 57
 EQ                   : 9
 EQUALS               : 42
-FLOAT                : 60 62
+FLOAT                : 61 63
 GE                   : 14
-GEOMETRY             : 55
+GEOMETRY             : 56
 GT                   : 13
 ILIKE                : 19 20
 IN                   : 21 22
-INTEGER              : 59 61
+INTEGER              : 60 62
 INTERSECTS           : 35
 IS                   : 23 24
-LBRACKET             : 8 54
+LBRACKET             : 8 55
 LE                   : 12
 LIKE                 : 17 18
-LPAREN               : 7 21 22 35 36 37 38 39 40 41 42 43 44 45 46 53
+LPAREN               : 7 21 22 35 36 37 38 39 40 41 42 43 44 45 46 47 54
 LT                   : 11
-MINUS                : 50
+MINUS                : 51
 NE                   : 10
 NOT                  : 6 15 17 19 21 23
 NULL                 : 23 24
 OR                   : 5 28 30
 OVERLAPS             : 41
-PLUS                 : 49
-QUOTED               : 17 18 19 20 43 46 58
-RBRACKET             : 8 54
+PLUS                 : 50
+QUOTED               : 17 18 19 20 43 47 59
+RBRACKET             : 8 55
 RELATE               : 43
-RPAREN               : 7 21 22 35 36 37 38 39 40 41 42 43 44 45 46 53
+RPAREN               : 7 21 22 35 36 37 38 39 40 41 42 43 44 45 46 47 54
 TIME                 : 27 31 32 32 33 34
-TIMES                : 51
+TIMES                : 52
 TOUCHES              : 39
 UNITS                : 44 45
 WITHIN               : 38
@@ -135,13 +136,13 @@ statute miles        :
 
 Nonterminals, with rules where they appear
 
-attribute            : 57
+attribute            : 58
 condition            : 1 4 4 5 5 6 7 8
 condition_or_empty   : 0
 empty                : 2
-expression           : 9 9 10 10 11 11 12 12 13 13 14 14 15 15 15 16 16 16 17 18 19 20 21 22 23 24 27 28 29 30 31 35 35 36 36 37 37 38 38 39 39 40 40 41 41 42 42 43 43 44 44 45 45 46 47 48 49 49 50 50 51 51 52 52 53 54
-expression_list      : 21 22 47
-number               : 44 45 46 46 46 46
+expression           : 9 9 10 10 11 11 12 12 13 13 14 14 15 15 15 16 16 16 17 18 19 20 21 22 23 24 27 28 29 30 31 35 35 36 36 37 37 38 38 39 39 40 40 41 41 42 42 43 43 44 44 45 45 46 47 48 49 50 50 51 51 52 52 53 53 54 55
+expression_list      : 21 22 48
+number               : 44 45 46 46 46 46 47 47 47 47
 predicate            : 3
 spatial_predicate    : 26
 temporal_predicate   : 25
@@ -160,7 +161,7 @@ state 0
     (6) condition -> . NOT condition
     (7) condition -> . LPAREN condition RPAREN
     (8) condition -> . LBRACKET condition RBRACKET
-    (64) empty -> .
+    (65) empty -> .
     (9) predicate -> . expression EQ expression
     (10) predicate -> . expression NE expression
     (11) predicate -> . expression LT expression
@@ -179,18 +180,18 @@ state 0
     (24) predicate -> . expression IS NULL
     (25) predicate -> . temporal_predicate
     (26) predicate -> . spatial_predicate
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
     (27) temporal_predicate -> . expression BEFORE TIME
     (28) temporal_predicate -> . expression BEFORE OR DURING time_period
     (29) temporal_predicate -> . expression DURING time_period
@@ -207,13 +208,14 @@ state 0
     (43) spatial_predicate -> . RELATE LPAREN expression COMMA expression COMMA QUOTED RPAREN
     (44) spatial_predicate -> . DWITHIN LPAREN expression COMMA expression COMMA number COMMA UNITS RPAREN
     (45) spatial_predicate -> . BEYOND LPAREN expression COMMA expression COMMA number COMMA UNITS RPAREN
-    (46) spatial_predicate -> . BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN
-    (63) attribute -> . ATTRIBUTE
+    (46) spatial_predicate -> . BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number RPAREN
+    (47) spatial_predicate -> . BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN
+    (64) attribute -> . ATTRIBUTE
 
     NOT             shift and go to state 5
     LPAREN          shift and go to state 6
     LBRACKET        shift and go to state 7
-    $end            reduce using rule 64 (empty -> .)
+    $end            reduce using rule 65 (empty -> .)
     GEOMETRY        shift and go to state 12
     ENVELOPE        shift and go to state 13
     QUOTED          shift and go to state 9
@@ -304,18 +306,18 @@ state 5
     (24) predicate -> . expression IS NULL
     (25) predicate -> . temporal_predicate
     (26) predicate -> . spatial_predicate
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
     (27) temporal_predicate -> . expression BEFORE TIME
     (28) temporal_predicate -> . expression BEFORE OR DURING time_period
     (29) temporal_predicate -> . expression DURING time_period
@@ -332,8 +334,9 @@ state 5
     (43) spatial_predicate -> . RELATE LPAREN expression COMMA expression COMMA QUOTED RPAREN
     (44) spatial_predicate -> . DWITHIN LPAREN expression COMMA expression COMMA number COMMA UNITS RPAREN
     (45) spatial_predicate -> . BEYOND LPAREN expression COMMA expression COMMA number COMMA UNITS RPAREN
-    (46) spatial_predicate -> . BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN
-    (63) attribute -> . ATTRIBUTE
+    (46) spatial_predicate -> . BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number RPAREN
+    (47) spatial_predicate -> . BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN
+    (64) attribute -> . ATTRIBUTE
 
     NOT             shift and go to state 5
     LPAREN          shift and go to state 6
@@ -367,25 +370,25 @@ state 5
 state 6
 
     (7) condition -> LPAREN . condition RPAREN
-    (53) expression -> LPAREN . expression RPAREN
+    (54) expression -> LPAREN . expression RPAREN
     (3) condition -> . predicate
     (4) condition -> . condition AND condition
     (5) condition -> . condition OR condition
     (6) condition -> . NOT condition
     (7) condition -> . LPAREN condition RPAREN
     (8) condition -> . LBRACKET condition RBRACKET
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
     (9) predicate -> . expression EQ expression
     (10) predicate -> . expression NE expression
     (11) predicate -> . expression LT expression
@@ -404,7 +407,7 @@ state 6
     (24) predicate -> . expression IS NULL
     (25) predicate -> . temporal_predicate
     (26) predicate -> . spatial_predicate
-    (63) attribute -> . ATTRIBUTE
+    (64) attribute -> . ATTRIBUTE
     (27) temporal_predicate -> . expression BEFORE TIME
     (28) temporal_predicate -> . expression BEFORE OR DURING time_period
     (29) temporal_predicate -> . expression DURING time_period
@@ -421,7 +424,8 @@ state 6
     (43) spatial_predicate -> . RELATE LPAREN expression COMMA expression COMMA QUOTED RPAREN
     (44) spatial_predicate -> . DWITHIN LPAREN expression COMMA expression COMMA number COMMA UNITS RPAREN
     (45) spatial_predicate -> . BEYOND LPAREN expression COMMA expression COMMA number COMMA UNITS RPAREN
-    (46) spatial_predicate -> . BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN
+    (46) spatial_predicate -> . BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number RPAREN
+    (47) spatial_predicate -> . BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN
 
     NOT             shift and go to state 5
     LPAREN          shift and go to state 6
@@ -455,25 +459,25 @@ state 6
 state 7
 
     (8) condition -> LBRACKET . condition RBRACKET
-    (54) expression -> LBRACKET . expression RBRACKET
+    (55) expression -> LBRACKET . expression RBRACKET
     (3) condition -> . predicate
     (4) condition -> . condition AND condition
     (5) condition -> . condition OR condition
     (6) condition -> . NOT condition
     (7) condition -> . LPAREN condition RPAREN
     (8) condition -> . LBRACKET condition RBRACKET
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
     (9) predicate -> . expression EQ expression
     (10) predicate -> . expression NE expression
     (11) predicate -> . expression LT expression
@@ -492,7 +496,7 @@ state 7
     (24) predicate -> . expression IS NULL
     (25) predicate -> . temporal_predicate
     (26) predicate -> . spatial_predicate
-    (63) attribute -> . ATTRIBUTE
+    (64) attribute -> . ATTRIBUTE
     (27) temporal_predicate -> . expression BEFORE TIME
     (28) temporal_predicate -> . expression BEFORE OR DURING time_period
     (29) temporal_predicate -> . expression DURING time_period
@@ -509,7 +513,8 @@ state 7
     (43) spatial_predicate -> . RELATE LPAREN expression COMMA expression COMMA QUOTED RPAREN
     (44) spatial_predicate -> . DWITHIN LPAREN expression COMMA expression COMMA number COMMA UNITS RPAREN
     (45) spatial_predicate -> . BEYOND LPAREN expression COMMA expression COMMA number COMMA UNITS RPAREN
-    (46) spatial_predicate -> . BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN
+    (46) spatial_predicate -> . BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number RPAREN
+    (47) spatial_predicate -> . BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN
 
     NOT             shift and go to state 5
     LPAREN          shift and go to state 6
@@ -558,10 +563,10 @@ state 8
     (22) predicate -> expression . IN LPAREN expression_list RPAREN
     (23) predicate -> expression . IS NOT NULL
     (24) predicate -> expression . IS NULL
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
     (27) temporal_predicate -> expression . BEFORE TIME
     (28) temporal_predicate -> expression . BEFORE OR DURING time_period
     (29) temporal_predicate -> expression . DURING time_period
@@ -591,33 +596,33 @@ state 8
 
 state 9
 
-    (58) expression -> QUOTED .
+    (59) expression -> QUOTED .
 
-    EQ              reduce using rule 58 (expression -> QUOTED .)
-    NE              reduce using rule 58 (expression -> QUOTED .)
-    LT              reduce using rule 58 (expression -> QUOTED .)
-    LE              reduce using rule 58 (expression -> QUOTED .)
-    GT              reduce using rule 58 (expression -> QUOTED .)
-    GE              reduce using rule 58 (expression -> QUOTED .)
-    NOT             reduce using rule 58 (expression -> QUOTED .)
-    BETWEEN         reduce using rule 58 (expression -> QUOTED .)
-    LIKE            reduce using rule 58 (expression -> QUOTED .)
-    ILIKE           reduce using rule 58 (expression -> QUOTED .)
-    IN              reduce using rule 58 (expression -> QUOTED .)
-    IS              reduce using rule 58 (expression -> QUOTED .)
-    PLUS            reduce using rule 58 (expression -> QUOTED .)
-    MINUS           reduce using rule 58 (expression -> QUOTED .)
-    TIMES           reduce using rule 58 (expression -> QUOTED .)
-    DIVIDE          reduce using rule 58 (expression -> QUOTED .)
-    BEFORE          reduce using rule 58 (expression -> QUOTED .)
-    DURING          reduce using rule 58 (expression -> QUOTED .)
-    AFTER           reduce using rule 58 (expression -> QUOTED .)
-    RPAREN          reduce using rule 58 (expression -> QUOTED .)
-    RBRACKET        reduce using rule 58 (expression -> QUOTED .)
-    AND             reduce using rule 58 (expression -> QUOTED .)
-    OR              reduce using rule 58 (expression -> QUOTED .)
-    $end            reduce using rule 58 (expression -> QUOTED .)
-    COMMA           reduce using rule 58 (expression -> QUOTED .)
+    EQ              reduce using rule 59 (expression -> QUOTED .)
+    NE              reduce using rule 59 (expression -> QUOTED .)
+    LT              reduce using rule 59 (expression -> QUOTED .)
+    LE              reduce using rule 59 (expression -> QUOTED .)
+    GT              reduce using rule 59 (expression -> QUOTED .)
+    GE              reduce using rule 59 (expression -> QUOTED .)
+    NOT             reduce using rule 59 (expression -> QUOTED .)
+    BETWEEN         reduce using rule 59 (expression -> QUOTED .)
+    LIKE            reduce using rule 59 (expression -> QUOTED .)
+    ILIKE           reduce using rule 59 (expression -> QUOTED .)
+    IN              reduce using rule 59 (expression -> QUOTED .)
+    IS              reduce using rule 59 (expression -> QUOTED .)
+    PLUS            reduce using rule 59 (expression -> QUOTED .)
+    MINUS           reduce using rule 59 (expression -> QUOTED .)
+    TIMES           reduce using rule 59 (expression -> QUOTED .)
+    DIVIDE          reduce using rule 59 (expression -> QUOTED .)
+    BEFORE          reduce using rule 59 (expression -> QUOTED .)
+    DURING          reduce using rule 59 (expression -> QUOTED .)
+    AFTER           reduce using rule 59 (expression -> QUOTED .)
+    RPAREN          reduce using rule 59 (expression -> QUOTED .)
+    RBRACKET        reduce using rule 59 (expression -> QUOTED .)
+    AND             reduce using rule 59 (expression -> QUOTED .)
+    OR              reduce using rule 59 (expression -> QUOTED .)
+    $end            reduce using rule 59 (expression -> QUOTED .)
+    COMMA           reduce using rule 59 (expression -> QUOTED .)
 
 
 state 10
@@ -644,157 +649,157 @@ state 11
 
 state 12
 
-    (55) expression -> GEOMETRY .
+    (56) expression -> GEOMETRY .
 
-    EQ              reduce using rule 55 (expression -> GEOMETRY .)
-    NE              reduce using rule 55 (expression -> GEOMETRY .)
-    LT              reduce using rule 55 (expression -> GEOMETRY .)
-    LE              reduce using rule 55 (expression -> GEOMETRY .)
-    GT              reduce using rule 55 (expression -> GEOMETRY .)
-    GE              reduce using rule 55 (expression -> GEOMETRY .)
-    NOT             reduce using rule 55 (expression -> GEOMETRY .)
-    BETWEEN         reduce using rule 55 (expression -> GEOMETRY .)
-    LIKE            reduce using rule 55 (expression -> GEOMETRY .)
-    ILIKE           reduce using rule 55 (expression -> GEOMETRY .)
-    IN              reduce using rule 55 (expression -> GEOMETRY .)
-    IS              reduce using rule 55 (expression -> GEOMETRY .)
-    PLUS            reduce using rule 55 (expression -> GEOMETRY .)
-    MINUS           reduce using rule 55 (expression -> GEOMETRY .)
-    TIMES           reduce using rule 55 (expression -> GEOMETRY .)
-    DIVIDE          reduce using rule 55 (expression -> GEOMETRY .)
-    BEFORE          reduce using rule 55 (expression -> GEOMETRY .)
-    DURING          reduce using rule 55 (expression -> GEOMETRY .)
-    AFTER           reduce using rule 55 (expression -> GEOMETRY .)
-    RPAREN          reduce using rule 55 (expression -> GEOMETRY .)
-    RBRACKET        reduce using rule 55 (expression -> GEOMETRY .)
-    AND             reduce using rule 55 (expression -> GEOMETRY .)
-    OR              reduce using rule 55 (expression -> GEOMETRY .)
-    $end            reduce using rule 55 (expression -> GEOMETRY .)
-    COMMA           reduce using rule 55 (expression -> GEOMETRY .)
+    EQ              reduce using rule 56 (expression -> GEOMETRY .)
+    NE              reduce using rule 56 (expression -> GEOMETRY .)
+    LT              reduce using rule 56 (expression -> GEOMETRY .)
+    LE              reduce using rule 56 (expression -> GEOMETRY .)
+    GT              reduce using rule 56 (expression -> GEOMETRY .)
+    GE              reduce using rule 56 (expression -> GEOMETRY .)
+    NOT             reduce using rule 56 (expression -> GEOMETRY .)
+    BETWEEN         reduce using rule 56 (expression -> GEOMETRY .)
+    LIKE            reduce using rule 56 (expression -> GEOMETRY .)
+    ILIKE           reduce using rule 56 (expression -> GEOMETRY .)
+    IN              reduce using rule 56 (expression -> GEOMETRY .)
+    IS              reduce using rule 56 (expression -> GEOMETRY .)
+    PLUS            reduce using rule 56 (expression -> GEOMETRY .)
+    MINUS           reduce using rule 56 (expression -> GEOMETRY .)
+    TIMES           reduce using rule 56 (expression -> GEOMETRY .)
+    DIVIDE          reduce using rule 56 (expression -> GEOMETRY .)
+    BEFORE          reduce using rule 56 (expression -> GEOMETRY .)
+    DURING          reduce using rule 56 (expression -> GEOMETRY .)
+    AFTER           reduce using rule 56 (expression -> GEOMETRY .)
+    RPAREN          reduce using rule 56 (expression -> GEOMETRY .)
+    RBRACKET        reduce using rule 56 (expression -> GEOMETRY .)
+    AND             reduce using rule 56 (expression -> GEOMETRY .)
+    OR              reduce using rule 56 (expression -> GEOMETRY .)
+    $end            reduce using rule 56 (expression -> GEOMETRY .)
+    COMMA           reduce using rule 56 (expression -> GEOMETRY .)
 
 
 state 13
 
-    (56) expression -> ENVELOPE .
+    (57) expression -> ENVELOPE .
 
-    EQ              reduce using rule 56 (expression -> ENVELOPE .)
-    NE              reduce using rule 56 (expression -> ENVELOPE .)
-    LT              reduce using rule 56 (expression -> ENVELOPE .)
-    LE              reduce using rule 56 (expression -> ENVELOPE .)
-    GT              reduce using rule 56 (expression -> ENVELOPE .)
-    GE              reduce using rule 56 (expression -> ENVELOPE .)
-    NOT             reduce using rule 56 (expression -> ENVELOPE .)
-    BETWEEN         reduce using rule 56 (expression -> ENVELOPE .)
-    LIKE            reduce using rule 56 (expression -> ENVELOPE .)
-    ILIKE           reduce using rule 56 (expression -> ENVELOPE .)
-    IN              reduce using rule 56 (expression -> ENVELOPE .)
-    IS              reduce using rule 56 (expression -> ENVELOPE .)
-    PLUS            reduce using rule 56 (expression -> ENVELOPE .)
-    MINUS           reduce using rule 56 (expression -> ENVELOPE .)
-    TIMES           reduce using rule 56 (expression -> ENVELOPE .)
-    DIVIDE          reduce using rule 56 (expression -> ENVELOPE .)
-    BEFORE          reduce using rule 56 (expression -> ENVELOPE .)
-    DURING          reduce using rule 56 (expression -> ENVELOPE .)
-    AFTER           reduce using rule 56 (expression -> ENVELOPE .)
-    RPAREN          reduce using rule 56 (expression -> ENVELOPE .)
-    RBRACKET        reduce using rule 56 (expression -> ENVELOPE .)
-    AND             reduce using rule 56 (expression -> ENVELOPE .)
-    OR              reduce using rule 56 (expression -> ENVELOPE .)
-    $end            reduce using rule 56 (expression -> ENVELOPE .)
-    COMMA           reduce using rule 56 (expression -> ENVELOPE .)
+    EQ              reduce using rule 57 (expression -> ENVELOPE .)
+    NE              reduce using rule 57 (expression -> ENVELOPE .)
+    LT              reduce using rule 57 (expression -> ENVELOPE .)
+    LE              reduce using rule 57 (expression -> ENVELOPE .)
+    GT              reduce using rule 57 (expression -> ENVELOPE .)
+    GE              reduce using rule 57 (expression -> ENVELOPE .)
+    NOT             reduce using rule 57 (expression -> ENVELOPE .)
+    BETWEEN         reduce using rule 57 (expression -> ENVELOPE .)
+    LIKE            reduce using rule 57 (expression -> ENVELOPE .)
+    ILIKE           reduce using rule 57 (expression -> ENVELOPE .)
+    IN              reduce using rule 57 (expression -> ENVELOPE .)
+    IS              reduce using rule 57 (expression -> ENVELOPE .)
+    PLUS            reduce using rule 57 (expression -> ENVELOPE .)
+    MINUS           reduce using rule 57 (expression -> ENVELOPE .)
+    TIMES           reduce using rule 57 (expression -> ENVELOPE .)
+    DIVIDE          reduce using rule 57 (expression -> ENVELOPE .)
+    BEFORE          reduce using rule 57 (expression -> ENVELOPE .)
+    DURING          reduce using rule 57 (expression -> ENVELOPE .)
+    AFTER           reduce using rule 57 (expression -> ENVELOPE .)
+    RPAREN          reduce using rule 57 (expression -> ENVELOPE .)
+    RBRACKET        reduce using rule 57 (expression -> ENVELOPE .)
+    AND             reduce using rule 57 (expression -> ENVELOPE .)
+    OR              reduce using rule 57 (expression -> ENVELOPE .)
+    $end            reduce using rule 57 (expression -> ENVELOPE .)
+    COMMA           reduce using rule 57 (expression -> ENVELOPE .)
 
 
 state 14
 
-    (57) expression -> attribute .
+    (58) expression -> attribute .
 
-    EQ              reduce using rule 57 (expression -> attribute .)
-    NE              reduce using rule 57 (expression -> attribute .)
-    LT              reduce using rule 57 (expression -> attribute .)
-    LE              reduce using rule 57 (expression -> attribute .)
-    GT              reduce using rule 57 (expression -> attribute .)
-    GE              reduce using rule 57 (expression -> attribute .)
-    NOT             reduce using rule 57 (expression -> attribute .)
-    BETWEEN         reduce using rule 57 (expression -> attribute .)
-    LIKE            reduce using rule 57 (expression -> attribute .)
-    ILIKE           reduce using rule 57 (expression -> attribute .)
-    IN              reduce using rule 57 (expression -> attribute .)
-    IS              reduce using rule 57 (expression -> attribute .)
-    PLUS            reduce using rule 57 (expression -> attribute .)
-    MINUS           reduce using rule 57 (expression -> attribute .)
-    TIMES           reduce using rule 57 (expression -> attribute .)
-    DIVIDE          reduce using rule 57 (expression -> attribute .)
-    BEFORE          reduce using rule 57 (expression -> attribute .)
-    DURING          reduce using rule 57 (expression -> attribute .)
-    AFTER           reduce using rule 57 (expression -> attribute .)
-    RPAREN          reduce using rule 57 (expression -> attribute .)
-    RBRACKET        reduce using rule 57 (expression -> attribute .)
-    AND             reduce using rule 57 (expression -> attribute .)
-    OR              reduce using rule 57 (expression -> attribute .)
-    $end            reduce using rule 57 (expression -> attribute .)
-    COMMA           reduce using rule 57 (expression -> attribute .)
+    EQ              reduce using rule 58 (expression -> attribute .)
+    NE              reduce using rule 58 (expression -> attribute .)
+    LT              reduce using rule 58 (expression -> attribute .)
+    LE              reduce using rule 58 (expression -> attribute .)
+    GT              reduce using rule 58 (expression -> attribute .)
+    GE              reduce using rule 58 (expression -> attribute .)
+    NOT             reduce using rule 58 (expression -> attribute .)
+    BETWEEN         reduce using rule 58 (expression -> attribute .)
+    LIKE            reduce using rule 58 (expression -> attribute .)
+    ILIKE           reduce using rule 58 (expression -> attribute .)
+    IN              reduce using rule 58 (expression -> attribute .)
+    IS              reduce using rule 58 (expression -> attribute .)
+    PLUS            reduce using rule 58 (expression -> attribute .)
+    MINUS           reduce using rule 58 (expression -> attribute .)
+    TIMES           reduce using rule 58 (expression -> attribute .)
+    DIVIDE          reduce using rule 58 (expression -> attribute .)
+    BEFORE          reduce using rule 58 (expression -> attribute .)
+    DURING          reduce using rule 58 (expression -> attribute .)
+    AFTER           reduce using rule 58 (expression -> attribute .)
+    RPAREN          reduce using rule 58 (expression -> attribute .)
+    RBRACKET        reduce using rule 58 (expression -> attribute .)
+    AND             reduce using rule 58 (expression -> attribute .)
+    OR              reduce using rule 58 (expression -> attribute .)
+    $end            reduce using rule 58 (expression -> attribute .)
+    COMMA           reduce using rule 58 (expression -> attribute .)
 
 
 state 15
 
-    (59) expression -> INTEGER .
+    (60) expression -> INTEGER .
 
-    EQ              reduce using rule 59 (expression -> INTEGER .)
-    NE              reduce using rule 59 (expression -> INTEGER .)
-    LT              reduce using rule 59 (expression -> INTEGER .)
-    LE              reduce using rule 59 (expression -> INTEGER .)
-    GT              reduce using rule 59 (expression -> INTEGER .)
-    GE              reduce using rule 59 (expression -> INTEGER .)
-    NOT             reduce using rule 59 (expression -> INTEGER .)
-    BETWEEN         reduce using rule 59 (expression -> INTEGER .)
-    LIKE            reduce using rule 59 (expression -> INTEGER .)
-    ILIKE           reduce using rule 59 (expression -> INTEGER .)
-    IN              reduce using rule 59 (expression -> INTEGER .)
-    IS              reduce using rule 59 (expression -> INTEGER .)
-    PLUS            reduce using rule 59 (expression -> INTEGER .)
-    MINUS           reduce using rule 59 (expression -> INTEGER .)
-    TIMES           reduce using rule 59 (expression -> INTEGER .)
-    DIVIDE          reduce using rule 59 (expression -> INTEGER .)
-    BEFORE          reduce using rule 59 (expression -> INTEGER .)
-    DURING          reduce using rule 59 (expression -> INTEGER .)
-    AFTER           reduce using rule 59 (expression -> INTEGER .)
-    RPAREN          reduce using rule 59 (expression -> INTEGER .)
-    RBRACKET        reduce using rule 59 (expression -> INTEGER .)
-    AND             reduce using rule 59 (expression -> INTEGER .)
-    OR              reduce using rule 59 (expression -> INTEGER .)
-    $end            reduce using rule 59 (expression -> INTEGER .)
-    COMMA           reduce using rule 59 (expression -> INTEGER .)
+    EQ              reduce using rule 60 (expression -> INTEGER .)
+    NE              reduce using rule 60 (expression -> INTEGER .)
+    LT              reduce using rule 60 (expression -> INTEGER .)
+    LE              reduce using rule 60 (expression -> INTEGER .)
+    GT              reduce using rule 60 (expression -> INTEGER .)
+    GE              reduce using rule 60 (expression -> INTEGER .)
+    NOT             reduce using rule 60 (expression -> INTEGER .)
+    BETWEEN         reduce using rule 60 (expression -> INTEGER .)
+    LIKE            reduce using rule 60 (expression -> INTEGER .)
+    ILIKE           reduce using rule 60 (expression -> INTEGER .)
+    IN              reduce using rule 60 (expression -> INTEGER .)
+    IS              reduce using rule 60 (expression -> INTEGER .)
+    PLUS            reduce using rule 60 (expression -> INTEGER .)
+    MINUS           reduce using rule 60 (expression -> INTEGER .)
+    TIMES           reduce using rule 60 (expression -> INTEGER .)
+    DIVIDE          reduce using rule 60 (expression -> INTEGER .)
+    BEFORE          reduce using rule 60 (expression -> INTEGER .)
+    DURING          reduce using rule 60 (expression -> INTEGER .)
+    AFTER           reduce using rule 60 (expression -> INTEGER .)
+    RPAREN          reduce using rule 60 (expression -> INTEGER .)
+    RBRACKET        reduce using rule 60 (expression -> INTEGER .)
+    AND             reduce using rule 60 (expression -> INTEGER .)
+    OR              reduce using rule 60 (expression -> INTEGER .)
+    $end            reduce using rule 60 (expression -> INTEGER .)
+    COMMA           reduce using rule 60 (expression -> INTEGER .)
 
 
 state 16
 
-    (60) expression -> FLOAT .
+    (61) expression -> FLOAT .
 
-    EQ              reduce using rule 60 (expression -> FLOAT .)
-    NE              reduce using rule 60 (expression -> FLOAT .)
-    LT              reduce using rule 60 (expression -> FLOAT .)
-    LE              reduce using rule 60 (expression -> FLOAT .)
-    GT              reduce using rule 60 (expression -> FLOAT .)
-    GE              reduce using rule 60 (expression -> FLOAT .)
-    NOT             reduce using rule 60 (expression -> FLOAT .)
-    BETWEEN         reduce using rule 60 (expression -> FLOAT .)
-    LIKE            reduce using rule 60 (expression -> FLOAT .)
-    ILIKE           reduce using rule 60 (expression -> FLOAT .)
-    IN              reduce using rule 60 (expression -> FLOAT .)
-    IS              reduce using rule 60 (expression -> FLOAT .)
-    PLUS            reduce using rule 60 (expression -> FLOAT .)
-    MINUS           reduce using rule 60 (expression -> FLOAT .)
-    TIMES           reduce using rule 60 (expression -> FLOAT .)
-    DIVIDE          reduce using rule 60 (expression -> FLOAT .)
-    BEFORE          reduce using rule 60 (expression -> FLOAT .)
-    DURING          reduce using rule 60 (expression -> FLOAT .)
-    AFTER           reduce using rule 60 (expression -> FLOAT .)
-    RPAREN          reduce using rule 60 (expression -> FLOAT .)
-    RBRACKET        reduce using rule 60 (expression -> FLOAT .)
-    AND             reduce using rule 60 (expression -> FLOAT .)
-    OR              reduce using rule 60 (expression -> FLOAT .)
-    $end            reduce using rule 60 (expression -> FLOAT .)
-    COMMA           reduce using rule 60 (expression -> FLOAT .)
+    EQ              reduce using rule 61 (expression -> FLOAT .)
+    NE              reduce using rule 61 (expression -> FLOAT .)
+    LT              reduce using rule 61 (expression -> FLOAT .)
+    LE              reduce using rule 61 (expression -> FLOAT .)
+    GT              reduce using rule 61 (expression -> FLOAT .)
+    GE              reduce using rule 61 (expression -> FLOAT .)
+    NOT             reduce using rule 61 (expression -> FLOAT .)
+    BETWEEN         reduce using rule 61 (expression -> FLOAT .)
+    LIKE            reduce using rule 61 (expression -> FLOAT .)
+    ILIKE           reduce using rule 61 (expression -> FLOAT .)
+    IN              reduce using rule 61 (expression -> FLOAT .)
+    IS              reduce using rule 61 (expression -> FLOAT .)
+    PLUS            reduce using rule 61 (expression -> FLOAT .)
+    MINUS           reduce using rule 61 (expression -> FLOAT .)
+    TIMES           reduce using rule 61 (expression -> FLOAT .)
+    DIVIDE          reduce using rule 61 (expression -> FLOAT .)
+    BEFORE          reduce using rule 61 (expression -> FLOAT .)
+    DURING          reduce using rule 61 (expression -> FLOAT .)
+    AFTER           reduce using rule 61 (expression -> FLOAT .)
+    RPAREN          reduce using rule 61 (expression -> FLOAT .)
+    RBRACKET        reduce using rule 61 (expression -> FLOAT .)
+    AND             reduce using rule 61 (expression -> FLOAT .)
+    OR              reduce using rule 61 (expression -> FLOAT .)
+    $end            reduce using rule 61 (expression -> FLOAT .)
+    COMMA           reduce using rule 61 (expression -> FLOAT .)
 
 
 state 17
@@ -876,40 +881,41 @@ state 27
 
 state 28
 
-    (46) spatial_predicate -> BBOX . LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN
+    (46) spatial_predicate -> BBOX . LPAREN expression COMMA number COMMA number COMMA number COMMA number RPAREN
+    (47) spatial_predicate -> BBOX . LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN
 
     LPAREN          shift and go to state 67
 
 
 state 29
 
-    (63) attribute -> ATTRIBUTE .
+    (64) attribute -> ATTRIBUTE .
 
-    EQ              reduce using rule 63 (attribute -> ATTRIBUTE .)
-    NE              reduce using rule 63 (attribute -> ATTRIBUTE .)
-    LT              reduce using rule 63 (attribute -> ATTRIBUTE .)
-    LE              reduce using rule 63 (attribute -> ATTRIBUTE .)
-    GT              reduce using rule 63 (attribute -> ATTRIBUTE .)
-    GE              reduce using rule 63 (attribute -> ATTRIBUTE .)
-    NOT             reduce using rule 63 (attribute -> ATTRIBUTE .)
-    BETWEEN         reduce using rule 63 (attribute -> ATTRIBUTE .)
-    LIKE            reduce using rule 63 (attribute -> ATTRIBUTE .)
-    ILIKE           reduce using rule 63 (attribute -> ATTRIBUTE .)
-    IN              reduce using rule 63 (attribute -> ATTRIBUTE .)
-    IS              reduce using rule 63 (attribute -> ATTRIBUTE .)
-    PLUS            reduce using rule 63 (attribute -> ATTRIBUTE .)
-    MINUS           reduce using rule 63 (attribute -> ATTRIBUTE .)
-    TIMES           reduce using rule 63 (attribute -> ATTRIBUTE .)
-    DIVIDE          reduce using rule 63 (attribute -> ATTRIBUTE .)
-    BEFORE          reduce using rule 63 (attribute -> ATTRIBUTE .)
-    DURING          reduce using rule 63 (attribute -> ATTRIBUTE .)
-    AFTER           reduce using rule 63 (attribute -> ATTRIBUTE .)
-    RPAREN          reduce using rule 63 (attribute -> ATTRIBUTE .)
-    RBRACKET        reduce using rule 63 (attribute -> ATTRIBUTE .)
-    AND             reduce using rule 63 (attribute -> ATTRIBUTE .)
-    OR              reduce using rule 63 (attribute -> ATTRIBUTE .)
-    $end            reduce using rule 63 (attribute -> ATTRIBUTE .)
-    COMMA           reduce using rule 63 (attribute -> ATTRIBUTE .)
+    EQ              reduce using rule 64 (attribute -> ATTRIBUTE .)
+    NE              reduce using rule 64 (attribute -> ATTRIBUTE .)
+    LT              reduce using rule 64 (attribute -> ATTRIBUTE .)
+    LE              reduce using rule 64 (attribute -> ATTRIBUTE .)
+    GT              reduce using rule 64 (attribute -> ATTRIBUTE .)
+    GE              reduce using rule 64 (attribute -> ATTRIBUTE .)
+    NOT             reduce using rule 64 (attribute -> ATTRIBUTE .)
+    BETWEEN         reduce using rule 64 (attribute -> ATTRIBUTE .)
+    LIKE            reduce using rule 64 (attribute -> ATTRIBUTE .)
+    ILIKE           reduce using rule 64 (attribute -> ATTRIBUTE .)
+    IN              reduce using rule 64 (attribute -> ATTRIBUTE .)
+    IS              reduce using rule 64 (attribute -> ATTRIBUTE .)
+    PLUS            reduce using rule 64 (attribute -> ATTRIBUTE .)
+    MINUS           reduce using rule 64 (attribute -> ATTRIBUTE .)
+    TIMES           reduce using rule 64 (attribute -> ATTRIBUTE .)
+    DIVIDE          reduce using rule 64 (attribute -> ATTRIBUTE .)
+    BEFORE          reduce using rule 64 (attribute -> ATTRIBUTE .)
+    DURING          reduce using rule 64 (attribute -> ATTRIBUTE .)
+    AFTER           reduce using rule 64 (attribute -> ATTRIBUTE .)
+    RPAREN          reduce using rule 64 (attribute -> ATTRIBUTE .)
+    RBRACKET        reduce using rule 64 (attribute -> ATTRIBUTE .)
+    AND             reduce using rule 64 (attribute -> ATTRIBUTE .)
+    OR              reduce using rule 64 (attribute -> ATTRIBUTE .)
+    $end            reduce using rule 64 (attribute -> ATTRIBUTE .)
+    COMMA           reduce using rule 64 (attribute -> ATTRIBUTE .)
 
 
 state 30
@@ -939,18 +945,18 @@ state 30
     (24) predicate -> . expression IS NULL
     (25) predicate -> . temporal_predicate
     (26) predicate -> . spatial_predicate
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
     (27) temporal_predicate -> . expression BEFORE TIME
     (28) temporal_predicate -> . expression BEFORE OR DURING time_period
     (29) temporal_predicate -> . expression DURING time_period
@@ -967,8 +973,9 @@ state 30
     (43) spatial_predicate -> . RELATE LPAREN expression COMMA expression COMMA QUOTED RPAREN
     (44) spatial_predicate -> . DWITHIN LPAREN expression COMMA expression COMMA number COMMA UNITS RPAREN
     (45) spatial_predicate -> . BEYOND LPAREN expression COMMA expression COMMA number COMMA UNITS RPAREN
-    (46) spatial_predicate -> . BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN
-    (63) attribute -> . ATTRIBUTE
+    (46) spatial_predicate -> . BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number RPAREN
+    (47) spatial_predicate -> . BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN
+    (64) attribute -> . ATTRIBUTE
 
     NOT             shift and go to state 5
     LPAREN          shift and go to state 6
@@ -1026,18 +1033,18 @@ state 31
     (24) predicate -> . expression IS NULL
     (25) predicate -> . temporal_predicate
     (26) predicate -> . spatial_predicate
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
     (27) temporal_predicate -> . expression BEFORE TIME
     (28) temporal_predicate -> . expression BEFORE OR DURING time_period
     (29) temporal_predicate -> . expression DURING time_period
@@ -1054,8 +1061,9 @@ state 31
     (43) spatial_predicate -> . RELATE LPAREN expression COMMA expression COMMA QUOTED RPAREN
     (44) spatial_predicate -> . DWITHIN LPAREN expression COMMA expression COMMA number COMMA UNITS RPAREN
     (45) spatial_predicate -> . BEYOND LPAREN expression COMMA expression COMMA number COMMA UNITS RPAREN
-    (46) spatial_predicate -> . BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN
-    (63) attribute -> . ATTRIBUTE
+    (46) spatial_predicate -> . BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number RPAREN
+    (47) spatial_predicate -> . BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN
+    (64) attribute -> . ATTRIBUTE
 
     NOT             shift and go to state 5
     LPAREN          shift and go to state 6
@@ -1117,11 +1125,11 @@ state 33
 
 state 34
 
-    (53) expression -> LPAREN expression . RPAREN
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (54) expression -> LPAREN expression . RPAREN
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
     (9) predicate -> expression . EQ expression
     (10) predicate -> expression . NE expression
     (11) predicate -> expression . LT expression
@@ -1179,11 +1187,11 @@ state 35
 
 state 36
 
-    (54) expression -> LBRACKET expression . RBRACKET
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (55) expression -> LBRACKET expression . RBRACKET
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
     (9) predicate -> expression . EQ expression
     (10) predicate -> expression . NE expression
     (11) predicate -> expression . LT expression
@@ -1231,19 +1239,19 @@ state 36
 state 37
 
     (9) predicate -> expression EQ . expression
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -1260,19 +1268,19 @@ state 37
 state 38
 
     (10) predicate -> expression NE . expression
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -1289,19 +1297,19 @@ state 38
 state 39
 
     (11) predicate -> expression LT . expression
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -1318,19 +1326,19 @@ state 39
 state 40
 
     (12) predicate -> expression LE . expression
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -1347,19 +1355,19 @@ state 40
 state 41
 
     (13) predicate -> expression GT . expression
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -1376,19 +1384,19 @@ state 41
 state 42
 
     (14) predicate -> expression GE . expression
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -1418,19 +1426,19 @@ state 43
 state 44
 
     (16) predicate -> expression BETWEEN . expression AND expression
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -1476,20 +1484,20 @@ state 48
 
 state 49
 
-    (49) expression -> expression PLUS . expression
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> expression PLUS . expression
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -1505,20 +1513,20 @@ state 49
 
 state 50
 
-    (50) expression -> expression MINUS . expression
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (51) expression -> expression MINUS . expression
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -1534,20 +1542,20 @@ state 50
 
 state 51
 
-    (51) expression -> expression TIMES . expression
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (52) expression -> expression TIMES . expression
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -1563,20 +1571,20 @@ state 51
 
 state 52
 
-    (52) expression -> expression DIVIDE . expression
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (53) expression -> expression DIVIDE . expression
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -1623,19 +1631,19 @@ state 55
 state 56
 
     (35) spatial_predicate -> INTERSECTS LPAREN . expression COMMA expression RPAREN
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -1652,19 +1660,19 @@ state 56
 state 57
 
     (36) spatial_predicate -> DISJOINT LPAREN . expression COMMA expression RPAREN
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -1681,19 +1689,19 @@ state 57
 state 58
 
     (37) spatial_predicate -> CONTAINS LPAREN . expression COMMA expression RPAREN
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -1710,19 +1718,19 @@ state 58
 state 59
 
     (38) spatial_predicate -> WITHIN LPAREN . expression COMMA expression RPAREN
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -1739,19 +1747,19 @@ state 59
 state 60
 
     (39) spatial_predicate -> TOUCHES LPAREN . expression COMMA expression RPAREN
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -1768,19 +1776,19 @@ state 60
 state 61
 
     (40) spatial_predicate -> CROSSES LPAREN . expression COMMA expression RPAREN
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -1797,19 +1805,19 @@ state 61
 state 62
 
     (41) spatial_predicate -> OVERLAPS LPAREN . expression COMMA expression RPAREN
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -1826,19 +1834,19 @@ state 62
 state 63
 
     (42) spatial_predicate -> EQUALS LPAREN . expression COMMA expression RPAREN
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -1855,19 +1863,19 @@ state 63
 state 64
 
     (43) spatial_predicate -> RELATE LPAREN . expression COMMA expression COMMA QUOTED RPAREN
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -1884,19 +1892,19 @@ state 64
 state 65
 
     (44) spatial_predicate -> DWITHIN LPAREN . expression COMMA expression COMMA number COMMA UNITS RPAREN
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -1913,19 +1921,19 @@ state 65
 state 66
 
     (45) spatial_predicate -> BEYOND LPAREN . expression COMMA expression COMMA number COMMA UNITS RPAREN
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -1941,20 +1949,21 @@ state 66
 
 state 67
 
-    (46) spatial_predicate -> BBOX LPAREN . expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (46) spatial_predicate -> BBOX LPAREN . expression COMMA number COMMA number COMMA number COMMA number RPAREN
+    (47) spatial_predicate -> BBOX LPAREN . expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -2017,33 +2026,33 @@ state 70
 
 state 71
 
-    (53) expression -> LPAREN expression RPAREN .
+    (54) expression -> LPAREN expression RPAREN .
 
-    EQ              reduce using rule 53 (expression -> LPAREN expression RPAREN .)
-    NE              reduce using rule 53 (expression -> LPAREN expression RPAREN .)
-    LT              reduce using rule 53 (expression -> LPAREN expression RPAREN .)
-    LE              reduce using rule 53 (expression -> LPAREN expression RPAREN .)
-    GT              reduce using rule 53 (expression -> LPAREN expression RPAREN .)
-    GE              reduce using rule 53 (expression -> LPAREN expression RPAREN .)
-    NOT             reduce using rule 53 (expression -> LPAREN expression RPAREN .)
-    BETWEEN         reduce using rule 53 (expression -> LPAREN expression RPAREN .)
-    LIKE            reduce using rule 53 (expression -> LPAREN expression RPAREN .)
-    ILIKE           reduce using rule 53 (expression -> LPAREN expression RPAREN .)
-    IN              reduce using rule 53 (expression -> LPAREN expression RPAREN .)
-    IS              reduce using rule 53 (expression -> LPAREN expression RPAREN .)
-    PLUS            reduce using rule 53 (expression -> LPAREN expression RPAREN .)
-    MINUS           reduce using rule 53 (expression -> LPAREN expression RPAREN .)
-    TIMES           reduce using rule 53 (expression -> LPAREN expression RPAREN .)
-    DIVIDE          reduce using rule 53 (expression -> LPAREN expression RPAREN .)
-    BEFORE          reduce using rule 53 (expression -> LPAREN expression RPAREN .)
-    DURING          reduce using rule 53 (expression -> LPAREN expression RPAREN .)
-    AFTER           reduce using rule 53 (expression -> LPAREN expression RPAREN .)
-    RPAREN          reduce using rule 53 (expression -> LPAREN expression RPAREN .)
-    RBRACKET        reduce using rule 53 (expression -> LPAREN expression RPAREN .)
-    AND             reduce using rule 53 (expression -> LPAREN expression RPAREN .)
-    OR              reduce using rule 53 (expression -> LPAREN expression RPAREN .)
-    $end            reduce using rule 53 (expression -> LPAREN expression RPAREN .)
-    COMMA           reduce using rule 53 (expression -> LPAREN expression RPAREN .)
+    EQ              reduce using rule 54 (expression -> LPAREN expression RPAREN .)
+    NE              reduce using rule 54 (expression -> LPAREN expression RPAREN .)
+    LT              reduce using rule 54 (expression -> LPAREN expression RPAREN .)
+    LE              reduce using rule 54 (expression -> LPAREN expression RPAREN .)
+    GT              reduce using rule 54 (expression -> LPAREN expression RPAREN .)
+    GE              reduce using rule 54 (expression -> LPAREN expression RPAREN .)
+    NOT             reduce using rule 54 (expression -> LPAREN expression RPAREN .)
+    BETWEEN         reduce using rule 54 (expression -> LPAREN expression RPAREN .)
+    LIKE            reduce using rule 54 (expression -> LPAREN expression RPAREN .)
+    ILIKE           reduce using rule 54 (expression -> LPAREN expression RPAREN .)
+    IN              reduce using rule 54 (expression -> LPAREN expression RPAREN .)
+    IS              reduce using rule 54 (expression -> LPAREN expression RPAREN .)
+    PLUS            reduce using rule 54 (expression -> LPAREN expression RPAREN .)
+    MINUS           reduce using rule 54 (expression -> LPAREN expression RPAREN .)
+    TIMES           reduce using rule 54 (expression -> LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 54 (expression -> LPAREN expression RPAREN .)
+    BEFORE          reduce using rule 54 (expression -> LPAREN expression RPAREN .)
+    DURING          reduce using rule 54 (expression -> LPAREN expression RPAREN .)
+    AFTER           reduce using rule 54 (expression -> LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 54 (expression -> LPAREN expression RPAREN .)
+    RBRACKET        reduce using rule 54 (expression -> LPAREN expression RPAREN .)
+    AND             reduce using rule 54 (expression -> LPAREN expression RPAREN .)
+    OR              reduce using rule 54 (expression -> LPAREN expression RPAREN .)
+    $end            reduce using rule 54 (expression -> LPAREN expression RPAREN .)
+    COMMA           reduce using rule 54 (expression -> LPAREN expression RPAREN .)
 
 
 state 72
@@ -2059,42 +2068,42 @@ state 72
 
 state 73
 
-    (54) expression -> LBRACKET expression RBRACKET .
+    (55) expression -> LBRACKET expression RBRACKET .
 
-    EQ              reduce using rule 54 (expression -> LBRACKET expression RBRACKET .)
-    NE              reduce using rule 54 (expression -> LBRACKET expression RBRACKET .)
-    LT              reduce using rule 54 (expression -> LBRACKET expression RBRACKET .)
-    LE              reduce using rule 54 (expression -> LBRACKET expression RBRACKET .)
-    GT              reduce using rule 54 (expression -> LBRACKET expression RBRACKET .)
-    GE              reduce using rule 54 (expression -> LBRACKET expression RBRACKET .)
-    NOT             reduce using rule 54 (expression -> LBRACKET expression RBRACKET .)
-    BETWEEN         reduce using rule 54 (expression -> LBRACKET expression RBRACKET .)
-    LIKE            reduce using rule 54 (expression -> LBRACKET expression RBRACKET .)
-    ILIKE           reduce using rule 54 (expression -> LBRACKET expression RBRACKET .)
-    IN              reduce using rule 54 (expression -> LBRACKET expression RBRACKET .)
-    IS              reduce using rule 54 (expression -> LBRACKET expression RBRACKET .)
-    PLUS            reduce using rule 54 (expression -> LBRACKET expression RBRACKET .)
-    MINUS           reduce using rule 54 (expression -> LBRACKET expression RBRACKET .)
-    TIMES           reduce using rule 54 (expression -> LBRACKET expression RBRACKET .)
-    DIVIDE          reduce using rule 54 (expression -> LBRACKET expression RBRACKET .)
-    BEFORE          reduce using rule 54 (expression -> LBRACKET expression RBRACKET .)
-    DURING          reduce using rule 54 (expression -> LBRACKET expression RBRACKET .)
-    AFTER           reduce using rule 54 (expression -> LBRACKET expression RBRACKET .)
-    RPAREN          reduce using rule 54 (expression -> LBRACKET expression RBRACKET .)
-    RBRACKET        reduce using rule 54 (expression -> LBRACKET expression RBRACKET .)
-    AND             reduce using rule 54 (expression -> LBRACKET expression RBRACKET .)
-    OR              reduce using rule 54 (expression -> LBRACKET expression RBRACKET .)
-    $end            reduce using rule 54 (expression -> LBRACKET expression RBRACKET .)
-    COMMA           reduce using rule 54 (expression -> LBRACKET expression RBRACKET .)
+    EQ              reduce using rule 55 (expression -> LBRACKET expression RBRACKET .)
+    NE              reduce using rule 55 (expression -> LBRACKET expression RBRACKET .)
+    LT              reduce using rule 55 (expression -> LBRACKET expression RBRACKET .)
+    LE              reduce using rule 55 (expression -> LBRACKET expression RBRACKET .)
+    GT              reduce using rule 55 (expression -> LBRACKET expression RBRACKET .)
+    GE              reduce using rule 55 (expression -> LBRACKET expression RBRACKET .)
+    NOT             reduce using rule 55 (expression -> LBRACKET expression RBRACKET .)
+    BETWEEN         reduce using rule 55 (expression -> LBRACKET expression RBRACKET .)
+    LIKE            reduce using rule 55 (expression -> LBRACKET expression RBRACKET .)
+    ILIKE           reduce using rule 55 (expression -> LBRACKET expression RBRACKET .)
+    IN              reduce using rule 55 (expression -> LBRACKET expression RBRACKET .)
+    IS              reduce using rule 55 (expression -> LBRACKET expression RBRACKET .)
+    PLUS            reduce using rule 55 (expression -> LBRACKET expression RBRACKET .)
+    MINUS           reduce using rule 55 (expression -> LBRACKET expression RBRACKET .)
+    TIMES           reduce using rule 55 (expression -> LBRACKET expression RBRACKET .)
+    DIVIDE          reduce using rule 55 (expression -> LBRACKET expression RBRACKET .)
+    BEFORE          reduce using rule 55 (expression -> LBRACKET expression RBRACKET .)
+    DURING          reduce using rule 55 (expression -> LBRACKET expression RBRACKET .)
+    AFTER           reduce using rule 55 (expression -> LBRACKET expression RBRACKET .)
+    RPAREN          reduce using rule 55 (expression -> LBRACKET expression RBRACKET .)
+    RBRACKET        reduce using rule 55 (expression -> LBRACKET expression RBRACKET .)
+    AND             reduce using rule 55 (expression -> LBRACKET expression RBRACKET .)
+    OR              reduce using rule 55 (expression -> LBRACKET expression RBRACKET .)
+    $end            reduce using rule 55 (expression -> LBRACKET expression RBRACKET .)
+    COMMA           reduce using rule 55 (expression -> LBRACKET expression RBRACKET .)
 
 
 state 74
 
     (9) predicate -> expression EQ expression .
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     AND             reduce using rule 9 (predicate -> expression EQ expression .)
     OR              reduce using rule 9 (predicate -> expression EQ expression .)
@@ -2109,20 +2118,20 @@ state 74
 
 state 75
 
-    (53) expression -> LPAREN . expression RPAREN
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (54) expression -> LPAREN . expression RPAREN
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -2138,20 +2147,20 @@ state 75
 
 state 76
 
-    (54) expression -> LBRACKET . expression RBRACKET
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (55) expression -> LBRACKET . expression RBRACKET
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -2168,10 +2177,10 @@ state 76
 state 77
 
     (10) predicate -> expression NE expression .
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     AND             reduce using rule 10 (predicate -> expression NE expression .)
     OR              reduce using rule 10 (predicate -> expression NE expression .)
@@ -2187,10 +2196,10 @@ state 77
 state 78
 
     (11) predicate -> expression LT expression .
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     AND             reduce using rule 11 (predicate -> expression LT expression .)
     OR              reduce using rule 11 (predicate -> expression LT expression .)
@@ -2206,10 +2215,10 @@ state 78
 state 79
 
     (12) predicate -> expression LE expression .
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     AND             reduce using rule 12 (predicate -> expression LE expression .)
     OR              reduce using rule 12 (predicate -> expression LE expression .)
@@ -2225,10 +2234,10 @@ state 79
 state 80
 
     (13) predicate -> expression GT expression .
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     AND             reduce using rule 13 (predicate -> expression GT expression .)
     OR              reduce using rule 13 (predicate -> expression GT expression .)
@@ -2244,10 +2253,10 @@ state 80
 state 81
 
     (14) predicate -> expression GE expression .
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     AND             reduce using rule 14 (predicate -> expression GE expression .)
     OR              reduce using rule 14 (predicate -> expression GE expression .)
@@ -2263,19 +2272,19 @@ state 81
 state 82
 
     (15) predicate -> expression NOT BETWEEN . expression AND expression
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -2313,10 +2322,10 @@ state 85
 state 86
 
     (16) predicate -> expression BETWEEN expression . AND expression
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     AND             shift and go to state 121
     PLUS            shift and go to state 49
@@ -2350,21 +2359,21 @@ state 88
 state 89
 
     (22) predicate -> expression IN LPAREN . expression_list RPAREN
-    (47) expression_list -> . expression_list COMMA expression
-    (48) expression_list -> . expression
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (48) expression_list -> . expression_list COMMA expression
+    (49) expression_list -> . expression
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -2399,117 +2408,117 @@ state 91
 
 state 92
 
-    (49) expression -> expression PLUS expression .
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression PLUS expression .
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
-    EQ              reduce using rule 49 (expression -> expression PLUS expression .)
-    NE              reduce using rule 49 (expression -> expression PLUS expression .)
-    LT              reduce using rule 49 (expression -> expression PLUS expression .)
-    LE              reduce using rule 49 (expression -> expression PLUS expression .)
-    GT              reduce using rule 49 (expression -> expression PLUS expression .)
-    GE              reduce using rule 49 (expression -> expression PLUS expression .)
-    NOT             reduce using rule 49 (expression -> expression PLUS expression .)
-    BETWEEN         reduce using rule 49 (expression -> expression PLUS expression .)
-    LIKE            reduce using rule 49 (expression -> expression PLUS expression .)
-    ILIKE           reduce using rule 49 (expression -> expression PLUS expression .)
-    IN              reduce using rule 49 (expression -> expression PLUS expression .)
-    IS              reduce using rule 49 (expression -> expression PLUS expression .)
-    PLUS            reduce using rule 49 (expression -> expression PLUS expression .)
-    MINUS           reduce using rule 49 (expression -> expression PLUS expression .)
-    BEFORE          reduce using rule 49 (expression -> expression PLUS expression .)
-    DURING          reduce using rule 49 (expression -> expression PLUS expression .)
-    AFTER           reduce using rule 49 (expression -> expression PLUS expression .)
-    RPAREN          reduce using rule 49 (expression -> expression PLUS expression .)
-    RBRACKET        reduce using rule 49 (expression -> expression PLUS expression .)
-    AND             reduce using rule 49 (expression -> expression PLUS expression .)
-    OR              reduce using rule 49 (expression -> expression PLUS expression .)
-    $end            reduce using rule 49 (expression -> expression PLUS expression .)
-    COMMA           reduce using rule 49 (expression -> expression PLUS expression .)
+    EQ              reduce using rule 50 (expression -> expression PLUS expression .)
+    NE              reduce using rule 50 (expression -> expression PLUS expression .)
+    LT              reduce using rule 50 (expression -> expression PLUS expression .)
+    LE              reduce using rule 50 (expression -> expression PLUS expression .)
+    GT              reduce using rule 50 (expression -> expression PLUS expression .)
+    GE              reduce using rule 50 (expression -> expression PLUS expression .)
+    NOT             reduce using rule 50 (expression -> expression PLUS expression .)
+    BETWEEN         reduce using rule 50 (expression -> expression PLUS expression .)
+    LIKE            reduce using rule 50 (expression -> expression PLUS expression .)
+    ILIKE           reduce using rule 50 (expression -> expression PLUS expression .)
+    IN              reduce using rule 50 (expression -> expression PLUS expression .)
+    IS              reduce using rule 50 (expression -> expression PLUS expression .)
+    PLUS            reduce using rule 50 (expression -> expression PLUS expression .)
+    MINUS           reduce using rule 50 (expression -> expression PLUS expression .)
+    BEFORE          reduce using rule 50 (expression -> expression PLUS expression .)
+    DURING          reduce using rule 50 (expression -> expression PLUS expression .)
+    AFTER           reduce using rule 50 (expression -> expression PLUS expression .)
+    RPAREN          reduce using rule 50 (expression -> expression PLUS expression .)
+    RBRACKET        reduce using rule 50 (expression -> expression PLUS expression .)
+    AND             reduce using rule 50 (expression -> expression PLUS expression .)
+    OR              reduce using rule 50 (expression -> expression PLUS expression .)
+    $end            reduce using rule 50 (expression -> expression PLUS expression .)
+    COMMA           reduce using rule 50 (expression -> expression PLUS expression .)
     TIMES           shift and go to state 51
     DIVIDE          shift and go to state 52
 
-  ! TIMES           [ reduce using rule 49 (expression -> expression PLUS expression .) ]
-  ! DIVIDE          [ reduce using rule 49 (expression -> expression PLUS expression .) ]
+  ! TIMES           [ reduce using rule 50 (expression -> expression PLUS expression .) ]
+  ! DIVIDE          [ reduce using rule 50 (expression -> expression PLUS expression .) ]
   ! PLUS            [ shift and go to state 49 ]
   ! MINUS           [ shift and go to state 50 ]
 
 
 state 93
 
-    (50) expression -> expression MINUS expression .
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (51) expression -> expression MINUS expression .
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
-    EQ              reduce using rule 50 (expression -> expression MINUS expression .)
-    NE              reduce using rule 50 (expression -> expression MINUS expression .)
-    LT              reduce using rule 50 (expression -> expression MINUS expression .)
-    LE              reduce using rule 50 (expression -> expression MINUS expression .)
-    GT              reduce using rule 50 (expression -> expression MINUS expression .)
-    GE              reduce using rule 50 (expression -> expression MINUS expression .)
-    NOT             reduce using rule 50 (expression -> expression MINUS expression .)
-    BETWEEN         reduce using rule 50 (expression -> expression MINUS expression .)
-    LIKE            reduce using rule 50 (expression -> expression MINUS expression .)
-    ILIKE           reduce using rule 50 (expression -> expression MINUS expression .)
-    IN              reduce using rule 50 (expression -> expression MINUS expression .)
-    IS              reduce using rule 50 (expression -> expression MINUS expression .)
-    PLUS            reduce using rule 50 (expression -> expression MINUS expression .)
-    MINUS           reduce using rule 50 (expression -> expression MINUS expression .)
-    BEFORE          reduce using rule 50 (expression -> expression MINUS expression .)
-    DURING          reduce using rule 50 (expression -> expression MINUS expression .)
-    AFTER           reduce using rule 50 (expression -> expression MINUS expression .)
-    RPAREN          reduce using rule 50 (expression -> expression MINUS expression .)
-    RBRACKET        reduce using rule 50 (expression -> expression MINUS expression .)
-    AND             reduce using rule 50 (expression -> expression MINUS expression .)
-    OR              reduce using rule 50 (expression -> expression MINUS expression .)
-    $end            reduce using rule 50 (expression -> expression MINUS expression .)
-    COMMA           reduce using rule 50 (expression -> expression MINUS expression .)
+    EQ              reduce using rule 51 (expression -> expression MINUS expression .)
+    NE              reduce using rule 51 (expression -> expression MINUS expression .)
+    LT              reduce using rule 51 (expression -> expression MINUS expression .)
+    LE              reduce using rule 51 (expression -> expression MINUS expression .)
+    GT              reduce using rule 51 (expression -> expression MINUS expression .)
+    GE              reduce using rule 51 (expression -> expression MINUS expression .)
+    NOT             reduce using rule 51 (expression -> expression MINUS expression .)
+    BETWEEN         reduce using rule 51 (expression -> expression MINUS expression .)
+    LIKE            reduce using rule 51 (expression -> expression MINUS expression .)
+    ILIKE           reduce using rule 51 (expression -> expression MINUS expression .)
+    IN              reduce using rule 51 (expression -> expression MINUS expression .)
+    IS              reduce using rule 51 (expression -> expression MINUS expression .)
+    PLUS            reduce using rule 51 (expression -> expression MINUS expression .)
+    MINUS           reduce using rule 51 (expression -> expression MINUS expression .)
+    BEFORE          reduce using rule 51 (expression -> expression MINUS expression .)
+    DURING          reduce using rule 51 (expression -> expression MINUS expression .)
+    AFTER           reduce using rule 51 (expression -> expression MINUS expression .)
+    RPAREN          reduce using rule 51 (expression -> expression MINUS expression .)
+    RBRACKET        reduce using rule 51 (expression -> expression MINUS expression .)
+    AND             reduce using rule 51 (expression -> expression MINUS expression .)
+    OR              reduce using rule 51 (expression -> expression MINUS expression .)
+    $end            reduce using rule 51 (expression -> expression MINUS expression .)
+    COMMA           reduce using rule 51 (expression -> expression MINUS expression .)
     TIMES           shift and go to state 51
     DIVIDE          shift and go to state 52
 
-  ! TIMES           [ reduce using rule 50 (expression -> expression MINUS expression .) ]
-  ! DIVIDE          [ reduce using rule 50 (expression -> expression MINUS expression .) ]
+  ! TIMES           [ reduce using rule 51 (expression -> expression MINUS expression .) ]
+  ! DIVIDE          [ reduce using rule 51 (expression -> expression MINUS expression .) ]
   ! PLUS            [ shift and go to state 49 ]
   ! MINUS           [ shift and go to state 50 ]
 
 
 state 94
 
-    (51) expression -> expression TIMES expression .
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (52) expression -> expression TIMES expression .
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
-    EQ              reduce using rule 51 (expression -> expression TIMES expression .)
-    NE              reduce using rule 51 (expression -> expression TIMES expression .)
-    LT              reduce using rule 51 (expression -> expression TIMES expression .)
-    LE              reduce using rule 51 (expression -> expression TIMES expression .)
-    GT              reduce using rule 51 (expression -> expression TIMES expression .)
-    GE              reduce using rule 51 (expression -> expression TIMES expression .)
-    NOT             reduce using rule 51 (expression -> expression TIMES expression .)
-    BETWEEN         reduce using rule 51 (expression -> expression TIMES expression .)
-    LIKE            reduce using rule 51 (expression -> expression TIMES expression .)
-    ILIKE           reduce using rule 51 (expression -> expression TIMES expression .)
-    IN              reduce using rule 51 (expression -> expression TIMES expression .)
-    IS              reduce using rule 51 (expression -> expression TIMES expression .)
-    PLUS            reduce using rule 51 (expression -> expression TIMES expression .)
-    MINUS           reduce using rule 51 (expression -> expression TIMES expression .)
-    TIMES           reduce using rule 51 (expression -> expression TIMES expression .)
-    DIVIDE          reduce using rule 51 (expression -> expression TIMES expression .)
-    BEFORE          reduce using rule 51 (expression -> expression TIMES expression .)
-    DURING          reduce using rule 51 (expression -> expression TIMES expression .)
-    AFTER           reduce using rule 51 (expression -> expression TIMES expression .)
-    RPAREN          reduce using rule 51 (expression -> expression TIMES expression .)
-    RBRACKET        reduce using rule 51 (expression -> expression TIMES expression .)
-    AND             reduce using rule 51 (expression -> expression TIMES expression .)
-    OR              reduce using rule 51 (expression -> expression TIMES expression .)
-    $end            reduce using rule 51 (expression -> expression TIMES expression .)
-    COMMA           reduce using rule 51 (expression -> expression TIMES expression .)
+    EQ              reduce using rule 52 (expression -> expression TIMES expression .)
+    NE              reduce using rule 52 (expression -> expression TIMES expression .)
+    LT              reduce using rule 52 (expression -> expression TIMES expression .)
+    LE              reduce using rule 52 (expression -> expression TIMES expression .)
+    GT              reduce using rule 52 (expression -> expression TIMES expression .)
+    GE              reduce using rule 52 (expression -> expression TIMES expression .)
+    NOT             reduce using rule 52 (expression -> expression TIMES expression .)
+    BETWEEN         reduce using rule 52 (expression -> expression TIMES expression .)
+    LIKE            reduce using rule 52 (expression -> expression TIMES expression .)
+    ILIKE           reduce using rule 52 (expression -> expression TIMES expression .)
+    IN              reduce using rule 52 (expression -> expression TIMES expression .)
+    IS              reduce using rule 52 (expression -> expression TIMES expression .)
+    PLUS            reduce using rule 52 (expression -> expression TIMES expression .)
+    MINUS           reduce using rule 52 (expression -> expression TIMES expression .)
+    TIMES           reduce using rule 52 (expression -> expression TIMES expression .)
+    DIVIDE          reduce using rule 52 (expression -> expression TIMES expression .)
+    BEFORE          reduce using rule 52 (expression -> expression TIMES expression .)
+    DURING          reduce using rule 52 (expression -> expression TIMES expression .)
+    AFTER           reduce using rule 52 (expression -> expression TIMES expression .)
+    RPAREN          reduce using rule 52 (expression -> expression TIMES expression .)
+    RBRACKET        reduce using rule 52 (expression -> expression TIMES expression .)
+    AND             reduce using rule 52 (expression -> expression TIMES expression .)
+    OR              reduce using rule 52 (expression -> expression TIMES expression .)
+    $end            reduce using rule 52 (expression -> expression TIMES expression .)
+    COMMA           reduce using rule 52 (expression -> expression TIMES expression .)
 
   ! PLUS            [ shift and go to state 49 ]
   ! MINUS           [ shift and go to state 50 ]
@@ -2519,37 +2528,37 @@ state 94
 
 state 95
 
-    (52) expression -> expression DIVIDE expression .
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (53) expression -> expression DIVIDE expression .
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
-    EQ              reduce using rule 52 (expression -> expression DIVIDE expression .)
-    NE              reduce using rule 52 (expression -> expression DIVIDE expression .)
-    LT              reduce using rule 52 (expression -> expression DIVIDE expression .)
-    LE              reduce using rule 52 (expression -> expression DIVIDE expression .)
-    GT              reduce using rule 52 (expression -> expression DIVIDE expression .)
-    GE              reduce using rule 52 (expression -> expression DIVIDE expression .)
-    NOT             reduce using rule 52 (expression -> expression DIVIDE expression .)
-    BETWEEN         reduce using rule 52 (expression -> expression DIVIDE expression .)
-    LIKE            reduce using rule 52 (expression -> expression DIVIDE expression .)
-    ILIKE           reduce using rule 52 (expression -> expression DIVIDE expression .)
-    IN              reduce using rule 52 (expression -> expression DIVIDE expression .)
-    IS              reduce using rule 52 (expression -> expression DIVIDE expression .)
-    PLUS            reduce using rule 52 (expression -> expression DIVIDE expression .)
-    MINUS           reduce using rule 52 (expression -> expression DIVIDE expression .)
-    TIMES           reduce using rule 52 (expression -> expression DIVIDE expression .)
-    DIVIDE          reduce using rule 52 (expression -> expression DIVIDE expression .)
-    BEFORE          reduce using rule 52 (expression -> expression DIVIDE expression .)
-    DURING          reduce using rule 52 (expression -> expression DIVIDE expression .)
-    AFTER           reduce using rule 52 (expression -> expression DIVIDE expression .)
-    RPAREN          reduce using rule 52 (expression -> expression DIVIDE expression .)
-    RBRACKET        reduce using rule 52 (expression -> expression DIVIDE expression .)
-    AND             reduce using rule 52 (expression -> expression DIVIDE expression .)
-    OR              reduce using rule 52 (expression -> expression DIVIDE expression .)
-    $end            reduce using rule 52 (expression -> expression DIVIDE expression .)
-    COMMA           reduce using rule 52 (expression -> expression DIVIDE expression .)
+    EQ              reduce using rule 53 (expression -> expression DIVIDE expression .)
+    NE              reduce using rule 53 (expression -> expression DIVIDE expression .)
+    LT              reduce using rule 53 (expression -> expression DIVIDE expression .)
+    LE              reduce using rule 53 (expression -> expression DIVIDE expression .)
+    GT              reduce using rule 53 (expression -> expression DIVIDE expression .)
+    GE              reduce using rule 53 (expression -> expression DIVIDE expression .)
+    NOT             reduce using rule 53 (expression -> expression DIVIDE expression .)
+    BETWEEN         reduce using rule 53 (expression -> expression DIVIDE expression .)
+    LIKE            reduce using rule 53 (expression -> expression DIVIDE expression .)
+    ILIKE           reduce using rule 53 (expression -> expression DIVIDE expression .)
+    IN              reduce using rule 53 (expression -> expression DIVIDE expression .)
+    IS              reduce using rule 53 (expression -> expression DIVIDE expression .)
+    PLUS            reduce using rule 53 (expression -> expression DIVIDE expression .)
+    MINUS           reduce using rule 53 (expression -> expression DIVIDE expression .)
+    TIMES           reduce using rule 53 (expression -> expression DIVIDE expression .)
+    DIVIDE          reduce using rule 53 (expression -> expression DIVIDE expression .)
+    BEFORE          reduce using rule 53 (expression -> expression DIVIDE expression .)
+    DURING          reduce using rule 53 (expression -> expression DIVIDE expression .)
+    AFTER           reduce using rule 53 (expression -> expression DIVIDE expression .)
+    RPAREN          reduce using rule 53 (expression -> expression DIVIDE expression .)
+    RBRACKET        reduce using rule 53 (expression -> expression DIVIDE expression .)
+    AND             reduce using rule 53 (expression -> expression DIVIDE expression .)
+    OR              reduce using rule 53 (expression -> expression DIVIDE expression .)
+    $end            reduce using rule 53 (expression -> expression DIVIDE expression .)
+    COMMA           reduce using rule 53 (expression -> expression DIVIDE expression .)
 
   ! PLUS            [ shift and go to state 49 ]
   ! MINUS           [ shift and go to state 50 ]
@@ -2622,10 +2631,10 @@ state 102
 state 103
 
     (35) spatial_predicate -> INTERSECTS LPAREN expression . COMMA expression RPAREN
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     COMMA           shift and go to state 129
     PLUS            shift and go to state 49
@@ -2637,10 +2646,10 @@ state 103
 state 104
 
     (36) spatial_predicate -> DISJOINT LPAREN expression . COMMA expression RPAREN
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     COMMA           shift and go to state 130
     PLUS            shift and go to state 49
@@ -2652,10 +2661,10 @@ state 104
 state 105
 
     (37) spatial_predicate -> CONTAINS LPAREN expression . COMMA expression RPAREN
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     COMMA           shift and go to state 131
     PLUS            shift and go to state 49
@@ -2667,10 +2676,10 @@ state 105
 state 106
 
     (38) spatial_predicate -> WITHIN LPAREN expression . COMMA expression RPAREN
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     COMMA           shift and go to state 132
     PLUS            shift and go to state 49
@@ -2682,10 +2691,10 @@ state 106
 state 107
 
     (39) spatial_predicate -> TOUCHES LPAREN expression . COMMA expression RPAREN
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     COMMA           shift and go to state 133
     PLUS            shift and go to state 49
@@ -2697,10 +2706,10 @@ state 107
 state 108
 
     (40) spatial_predicate -> CROSSES LPAREN expression . COMMA expression RPAREN
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     COMMA           shift and go to state 134
     PLUS            shift and go to state 49
@@ -2712,10 +2721,10 @@ state 108
 state 109
 
     (41) spatial_predicate -> OVERLAPS LPAREN expression . COMMA expression RPAREN
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     COMMA           shift and go to state 135
     PLUS            shift and go to state 49
@@ -2727,10 +2736,10 @@ state 109
 state 110
 
     (42) spatial_predicate -> EQUALS LPAREN expression . COMMA expression RPAREN
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     COMMA           shift and go to state 136
     PLUS            shift and go to state 49
@@ -2742,10 +2751,10 @@ state 110
 state 111
 
     (43) spatial_predicate -> RELATE LPAREN expression . COMMA expression COMMA QUOTED RPAREN
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     COMMA           shift and go to state 137
     PLUS            shift and go to state 49
@@ -2757,10 +2766,10 @@ state 111
 state 112
 
     (44) spatial_predicate -> DWITHIN LPAREN expression . COMMA expression COMMA number COMMA UNITS RPAREN
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     COMMA           shift and go to state 138
     PLUS            shift and go to state 49
@@ -2772,10 +2781,10 @@ state 112
 state 113
 
     (45) spatial_predicate -> BEYOND LPAREN expression . COMMA expression COMMA number COMMA UNITS RPAREN
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     COMMA           shift and go to state 139
     PLUS            shift and go to state 49
@@ -2786,11 +2795,12 @@ state 113
 
 state 114
 
-    (46) spatial_predicate -> BBOX LPAREN expression . COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (46) spatial_predicate -> BBOX LPAREN expression . COMMA number COMMA number COMMA number COMMA number RPAREN
+    (47) spatial_predicate -> BBOX LPAREN expression . COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     COMMA           shift and go to state 140
     PLUS            shift and go to state 49
@@ -2801,11 +2811,11 @@ state 114
 
 state 115
 
-    (53) expression -> LPAREN expression . RPAREN
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (54) expression -> LPAREN expression . RPAREN
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     RPAREN          shift and go to state 71
     PLUS            shift and go to state 49
@@ -2816,11 +2826,11 @@ state 115
 
 state 116
 
-    (54) expression -> LBRACKET expression . RBRACKET
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (55) expression -> LBRACKET expression . RBRACKET
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     RBRACKET        shift and go to state 73
     PLUS            shift and go to state 49
@@ -2832,10 +2842,10 @@ state 116
 state 117
 
     (15) predicate -> expression NOT BETWEEN expression . AND expression
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     AND             shift and go to state 141
     PLUS            shift and go to state 49
@@ -2869,21 +2879,21 @@ state 119
 state 120
 
     (21) predicate -> expression NOT IN LPAREN . expression_list RPAREN
-    (47) expression_list -> . expression_list COMMA expression
-    (48) expression_list -> . expression
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (48) expression_list -> . expression_list COMMA expression
+    (49) expression_list -> . expression
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -2901,19 +2911,19 @@ state 120
 state 121
 
     (16) predicate -> expression BETWEEN expression AND . expression
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -2929,14 +2939,14 @@ state 121
 
 state 122
 
-    (48) expression_list -> expression .
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (49) expression_list -> expression .
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
-    RPAREN          reduce using rule 48 (expression_list -> expression .)
-    COMMA           reduce using rule 48 (expression_list -> expression .)
+    RPAREN          reduce using rule 49 (expression_list -> expression .)
+    COMMA           reduce using rule 49 (expression_list -> expression .)
     PLUS            shift and go to state 49
     MINUS           shift and go to state 50
     TIMES           shift and go to state 51
@@ -2946,7 +2956,7 @@ state 122
 state 123
 
     (22) predicate -> expression IN LPAREN expression_list . RPAREN
-    (47) expression_list -> expression_list . COMMA expression
+    (48) expression_list -> expression_list . COMMA expression
 
     RPAREN          shift and go to state 144
     COMMA           shift and go to state 145
@@ -3006,19 +3016,19 @@ state 128
 state 129
 
     (35) spatial_predicate -> INTERSECTS LPAREN expression COMMA . expression RPAREN
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -3035,19 +3045,19 @@ state 129
 state 130
 
     (36) spatial_predicate -> DISJOINT LPAREN expression COMMA . expression RPAREN
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -3064,19 +3074,19 @@ state 130
 state 131
 
     (37) spatial_predicate -> CONTAINS LPAREN expression COMMA . expression RPAREN
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -3093,19 +3103,19 @@ state 131
 state 132
 
     (38) spatial_predicate -> WITHIN LPAREN expression COMMA . expression RPAREN
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -3122,19 +3132,19 @@ state 132
 state 133
 
     (39) spatial_predicate -> TOUCHES LPAREN expression COMMA . expression RPAREN
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -3151,19 +3161,19 @@ state 133
 state 134
 
     (40) spatial_predicate -> CROSSES LPAREN expression COMMA . expression RPAREN
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -3180,19 +3190,19 @@ state 134
 state 135
 
     (41) spatial_predicate -> OVERLAPS LPAREN expression COMMA . expression RPAREN
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -3209,19 +3219,19 @@ state 135
 state 136
 
     (42) spatial_predicate -> EQUALS LPAREN expression COMMA . expression RPAREN
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -3238,19 +3248,19 @@ state 136
 state 137
 
     (43) spatial_predicate -> RELATE LPAREN expression COMMA . expression COMMA QUOTED RPAREN
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -3267,19 +3277,19 @@ state 137
 state 138
 
     (44) spatial_predicate -> DWITHIN LPAREN expression COMMA . expression COMMA number COMMA UNITS RPAREN
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -3296,19 +3306,19 @@ state 138
 state 139
 
     (45) spatial_predicate -> BEYOND LPAREN expression COMMA . expression COMMA number COMMA UNITS RPAREN
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -3324,9 +3334,10 @@ state 139
 
 state 140
 
-    (46) spatial_predicate -> BBOX LPAREN expression COMMA . number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN
-    (61) number -> . INTEGER
-    (62) number -> . FLOAT
+    (46) spatial_predicate -> BBOX LPAREN expression COMMA . number COMMA number COMMA number COMMA number RPAREN
+    (47) spatial_predicate -> BBOX LPAREN expression COMMA . number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN
+    (62) number -> . INTEGER
+    (63) number -> . FLOAT
 
     INTEGER         shift and go to state 163
     FLOAT           shift and go to state 164
@@ -3336,19 +3347,19 @@ state 140
 state 141
 
     (15) predicate -> expression NOT BETWEEN expression AND . expression
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -3365,7 +3376,7 @@ state 141
 state 142
 
     (21) predicate -> expression NOT IN LPAREN expression_list . RPAREN
-    (47) expression_list -> expression_list . COMMA expression
+    (48) expression_list -> expression_list . COMMA expression
 
     RPAREN          shift and go to state 166
     COMMA           shift and go to state 145
@@ -3374,10 +3385,10 @@ state 142
 state 143
 
     (16) predicate -> expression BETWEEN expression AND expression .
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     AND             reduce using rule 16 (predicate -> expression BETWEEN expression AND expression .)
     OR              reduce using rule 16 (predicate -> expression BETWEEN expression AND expression .)
@@ -3403,20 +3414,20 @@ state 144
 
 state 145
 
-    (47) expression_list -> expression_list COMMA . expression
-    (49) expression -> . expression PLUS expression
-    (50) expression -> . expression MINUS expression
-    (51) expression -> . expression TIMES expression
-    (52) expression -> . expression DIVIDE expression
-    (53) expression -> . LPAREN expression RPAREN
-    (54) expression -> . LBRACKET expression RBRACKET
-    (55) expression -> . GEOMETRY
-    (56) expression -> . ENVELOPE
-    (57) expression -> . attribute
-    (58) expression -> . QUOTED
-    (59) expression -> . INTEGER
-    (60) expression -> . FLOAT
-    (63) attribute -> . ATTRIBUTE
+    (48) expression_list -> expression_list COMMA . expression
+    (50) expression -> . expression PLUS expression
+    (51) expression -> . expression MINUS expression
+    (52) expression -> . expression TIMES expression
+    (53) expression -> . expression DIVIDE expression
+    (54) expression -> . LPAREN expression RPAREN
+    (55) expression -> . LBRACKET expression RBRACKET
+    (56) expression -> . GEOMETRY
+    (57) expression -> . ENVELOPE
+    (58) expression -> . attribute
+    (59) expression -> . QUOTED
+    (60) expression -> . INTEGER
+    (61) expression -> . FLOAT
+    (64) attribute -> . ATTRIBUTE
 
     LPAREN          shift and go to state 75
     LBRACKET        shift and go to state 76
@@ -3488,10 +3499,10 @@ state 150
 state 151
 
     (35) spatial_predicate -> INTERSECTS LPAREN expression COMMA expression . RPAREN
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     RPAREN          shift and go to state 168
     PLUS            shift and go to state 49
@@ -3503,10 +3514,10 @@ state 151
 state 152
 
     (36) spatial_predicate -> DISJOINT LPAREN expression COMMA expression . RPAREN
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     RPAREN          shift and go to state 169
     PLUS            shift and go to state 49
@@ -3518,10 +3529,10 @@ state 152
 state 153
 
     (37) spatial_predicate -> CONTAINS LPAREN expression COMMA expression . RPAREN
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     RPAREN          shift and go to state 170
     PLUS            shift and go to state 49
@@ -3533,10 +3544,10 @@ state 153
 state 154
 
     (38) spatial_predicate -> WITHIN LPAREN expression COMMA expression . RPAREN
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     RPAREN          shift and go to state 171
     PLUS            shift and go to state 49
@@ -3548,10 +3559,10 @@ state 154
 state 155
 
     (39) spatial_predicate -> TOUCHES LPAREN expression COMMA expression . RPAREN
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     RPAREN          shift and go to state 172
     PLUS            shift and go to state 49
@@ -3563,10 +3574,10 @@ state 155
 state 156
 
     (40) spatial_predicate -> CROSSES LPAREN expression COMMA expression . RPAREN
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     RPAREN          shift and go to state 173
     PLUS            shift and go to state 49
@@ -3578,10 +3589,10 @@ state 156
 state 157
 
     (41) spatial_predicate -> OVERLAPS LPAREN expression COMMA expression . RPAREN
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     RPAREN          shift and go to state 174
     PLUS            shift and go to state 49
@@ -3593,10 +3604,10 @@ state 157
 state 158
 
     (42) spatial_predicate -> EQUALS LPAREN expression COMMA expression . RPAREN
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     RPAREN          shift and go to state 175
     PLUS            shift and go to state 49
@@ -3608,10 +3619,10 @@ state 158
 state 159
 
     (43) spatial_predicate -> RELATE LPAREN expression COMMA expression . COMMA QUOTED RPAREN
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     COMMA           shift and go to state 176
     PLUS            shift and go to state 49
@@ -3623,10 +3634,10 @@ state 159
 state 160
 
     (44) spatial_predicate -> DWITHIN LPAREN expression COMMA expression . COMMA number COMMA UNITS RPAREN
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     COMMA           shift and go to state 177
     PLUS            shift and go to state 49
@@ -3638,10 +3649,10 @@ state 160
 state 161
 
     (45) spatial_predicate -> BEYOND LPAREN expression COMMA expression . COMMA number COMMA UNITS RPAREN
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     COMMA           shift and go to state 178
     PLUS            shift and go to state 49
@@ -3652,32 +3663,35 @@ state 161
 
 state 162
 
-    (46) spatial_predicate -> BBOX LPAREN expression COMMA number . COMMA number COMMA number COMMA number COMMA QUOTED RPAREN
+    (46) spatial_predicate -> BBOX LPAREN expression COMMA number . COMMA number COMMA number COMMA number RPAREN
+    (47) spatial_predicate -> BBOX LPAREN expression COMMA number . COMMA number COMMA number COMMA number COMMA QUOTED RPAREN
 
     COMMA           shift and go to state 179
 
 
 state 163
 
-    (61) number -> INTEGER .
+    (62) number -> INTEGER .
 
-    COMMA           reduce using rule 61 (number -> INTEGER .)
+    COMMA           reduce using rule 62 (number -> INTEGER .)
+    RPAREN          reduce using rule 62 (number -> INTEGER .)
 
 
 state 164
 
-    (62) number -> FLOAT .
+    (63) number -> FLOAT .
 
-    COMMA           reduce using rule 62 (number -> FLOAT .)
+    COMMA           reduce using rule 63 (number -> FLOAT .)
+    RPAREN          reduce using rule 63 (number -> FLOAT .)
 
 
 state 165
 
     (15) predicate -> expression NOT BETWEEN expression AND expression .
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
     AND             reduce using rule 15 (predicate -> expression NOT BETWEEN expression AND expression .)
     OR              reduce using rule 15 (predicate -> expression NOT BETWEEN expression AND expression .)
@@ -3703,14 +3717,14 @@ state 166
 
 state 167
 
-    (47) expression_list -> expression_list COMMA expression .
-    (49) expression -> expression . PLUS expression
-    (50) expression -> expression . MINUS expression
-    (51) expression -> expression . TIMES expression
-    (52) expression -> expression . DIVIDE expression
+    (48) expression_list -> expression_list COMMA expression .
+    (50) expression -> expression . PLUS expression
+    (51) expression -> expression . MINUS expression
+    (52) expression -> expression . TIMES expression
+    (53) expression -> expression . DIVIDE expression
 
-    RPAREN          reduce using rule 47 (expression_list -> expression_list COMMA expression .)
-    COMMA           reduce using rule 47 (expression_list -> expression_list COMMA expression .)
+    RPAREN          reduce using rule 48 (expression_list -> expression_list COMMA expression .)
+    COMMA           reduce using rule 48 (expression_list -> expression_list COMMA expression .)
     PLUS            shift and go to state 49
     MINUS           shift and go to state 50
     TIMES           shift and go to state 51
@@ -3815,8 +3829,8 @@ state 176
 state 177
 
     (44) spatial_predicate -> DWITHIN LPAREN expression COMMA expression COMMA . number COMMA UNITS RPAREN
-    (61) number -> . INTEGER
-    (62) number -> . FLOAT
+    (62) number -> . INTEGER
+    (63) number -> . FLOAT
 
     INTEGER         shift and go to state 163
     FLOAT           shift and go to state 164
@@ -3826,8 +3840,8 @@ state 177
 state 178
 
     (45) spatial_predicate -> BEYOND LPAREN expression COMMA expression COMMA . number COMMA UNITS RPAREN
-    (61) number -> . INTEGER
-    (62) number -> . FLOAT
+    (62) number -> . INTEGER
+    (63) number -> . FLOAT
 
     INTEGER         shift and go to state 163
     FLOAT           shift and go to state 164
@@ -3836,9 +3850,10 @@ state 178
 
 state 179
 
-    (46) spatial_predicate -> BBOX LPAREN expression COMMA number COMMA . number COMMA number COMMA number COMMA QUOTED RPAREN
-    (61) number -> . INTEGER
-    (62) number -> . FLOAT
+    (46) spatial_predicate -> BBOX LPAREN expression COMMA number COMMA . number COMMA number COMMA number RPAREN
+    (47) spatial_predicate -> BBOX LPAREN expression COMMA number COMMA . number COMMA number COMMA number COMMA QUOTED RPAREN
+    (62) number -> . INTEGER
+    (63) number -> . FLOAT
 
     INTEGER         shift and go to state 163
     FLOAT           shift and go to state 164
@@ -3868,7 +3883,8 @@ state 182
 
 state 183
 
-    (46) spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number . COMMA number COMMA number COMMA QUOTED RPAREN
+    (46) spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number . COMMA number COMMA number RPAREN
+    (47) spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number . COMMA number COMMA number COMMA QUOTED RPAREN
 
     COMMA           shift and go to state 187
 
@@ -3900,9 +3916,10 @@ state 186
 
 state 187
 
-    (46) spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA . number COMMA number COMMA QUOTED RPAREN
-    (61) number -> . INTEGER
-    (62) number -> . FLOAT
+    (46) spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA . number COMMA number RPAREN
+    (47) spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA . number COMMA number COMMA QUOTED RPAREN
+    (62) number -> . INTEGER
+    (63) number -> . FLOAT
 
     INTEGER         shift and go to state 163
     FLOAT           shift and go to state 164
@@ -3925,7 +3942,8 @@ state 189
 
 state 190
 
-    (46) spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number . COMMA number COMMA QUOTED RPAREN
+    (46) spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number . COMMA number RPAREN
+    (47) spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number . COMMA number COMMA QUOTED RPAREN
 
     COMMA           shift and go to state 193
 
@@ -3954,9 +3972,10 @@ state 192
 
 state 193
 
-    (46) spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA . number COMMA QUOTED RPAREN
-    (61) number -> . INTEGER
-    (62) number -> . FLOAT
+    (46) spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA . number RPAREN
+    (47) spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA . number COMMA QUOTED RPAREN
+    (62) number -> . INTEGER
+    (63) number -> . FLOAT
 
     INTEGER         shift and go to state 163
     FLOAT           shift and go to state 164
@@ -3965,34 +3984,47 @@ state 193
 
 state 194
 
-    (46) spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number . COMMA QUOTED RPAREN
+    (46) spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number . RPAREN
+    (47) spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number . COMMA QUOTED RPAREN
 
+    RPAREN          shift and go to state 196
     COMMA           shift and go to state 195
 
 
 state 195
 
-    (46) spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA . QUOTED RPAREN
+    (47) spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA . QUOTED RPAREN
 
-    QUOTED          shift and go to state 196
+    QUOTED          shift and go to state 197
 
 
 state 196
 
-    (46) spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED . RPAREN
+    (46) spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number RPAREN .
 
-    RPAREN          shift and go to state 197
+    AND             reduce using rule 46 (spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number RPAREN .)
+    OR              reduce using rule 46 (spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number RPAREN .)
+    $end            reduce using rule 46 (spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number RPAREN .)
+    RPAREN          reduce using rule 46 (spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number RPAREN .)
+    RBRACKET        reduce using rule 46 (spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number RPAREN .)
 
 
 state 197
 
-    (46) spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN .
+    (47) spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED . RPAREN
 
-    AND             reduce using rule 46 (spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN .)
-    OR              reduce using rule 46 (spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN .)
-    $end            reduce using rule 46 (spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN .)
-    RPAREN          reduce using rule 46 (spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN .)
-    RBRACKET        reduce using rule 46 (spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN .)
+    RPAREN          shift and go to state 198
+
+
+state 198
+
+    (47) spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN .
+
+    AND             reduce using rule 47 (spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN .)
+    OR              reduce using rule 47 (spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN .)
+    $end            reduce using rule 47 (spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN .)
+    RPAREN          reduce using rule 47 (spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN .)
+    RBRACKET        reduce using rule 47 (spatial_predicate -> BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN .)
 
 WARNING: 
 WARNING: Conflicts:

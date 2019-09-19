@@ -187,6 +187,7 @@ class CQLParser(object):
                               | RELATE LPAREN expression COMMA expression COMMA QUOTED RPAREN
                               | DWITHIN LPAREN expression COMMA expression COMMA number COMMA UNITS RPAREN
                               | BEYOND LPAREN expression COMMA expression COMMA number COMMA UNITS RPAREN
+                              | BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number RPAREN
                               | BBOX LPAREN expression COMMA number COMMA number COMMA number COMMA number COMMA QUOTED RPAREN
         """
         op = p[1]
