@@ -15,7 +15,7 @@ install:
 - pip install .
 script:
 - pytest
-- cd tests/django_test ; python manage.py test testapp ; cd --
+- cd tests/django_test ; python manage.py test testapp ; cd -
 deploy:
   provider: pypi
   username: __token__
