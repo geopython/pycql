@@ -13,8 +13,8 @@
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
 #
-# The above copyright notice and this permission notice shall be included in all
-# copies of this Software or works derived from this Software.
+# The above copyright notice and this permission notice shall be included in
+# all copies of this Software or works derived from this Software.
 #
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -26,27 +26,11 @@
 # ------------------------------------------------------------------------------
 
 
-# from operator import and_, or_, add, sub, mul, truediv
 from datetime import datetime, timedelta
 from functools import reduce
-
-# try:
-#     from collections import OrderedDict
-# except ImportError:
-#     from django.utils.datastructures import SortedDict as OrderedDict
-
-# from django.db.models import Q, F, ForeignKey, Value
-# from django.db.models.expressions import Expression
-
-# from django.contrib.gis.gdal import SpatialReference
-# from django.contrib.gis.geos import Polygon
-# from django.contrib.gis.measure import D
-
-# ARITHMETIC_TYPES = (Expression, F, Value, int, float)
-
-from sqlalchemy import and_, or_, not_, func
-from geoalchemy2 import Geometry
 from inspect import signature
+from typing import List, Any
+from sqlalchemy import and_, func, not_, or_
 
 
 # ------------------------------------------------------------------------------
@@ -55,66 +39,72 @@ from inspect import signature
 class Operator(object):
 
     OPERATORS = {
-        'is_null': lambda f: f.is_(None),
-        'is_not_null': lambda f: f.isnot(None),
-        '==': lambda f, a: f == a,
-        '=': lambda f, a: f == a,
-        'eq': lambda f, a: f == a,
-        '!=': lambda f, a: f != a,
-        'ne': lambda f, a: f != a,
-        '>': lambda f, a: f > a,
-        'gt': lambda f, a: f > a,
-        '<': lambda f, a: f < a,
-        'lt': lambda f, a: f < a,
-        '>=': lambda f, a: f >= a,
-        'ge': lambda f, a: f >= a,
-        '<=': lambda f, a: f <= a,
-        'le': lambda f, a: f <= a,
-        'like': lambda f, a: f.like(a),
-        'ilike': lambda f, a: f.ilike(a),
-        'not_ilike': lambda f, a: ~f.ilike(a),
-        'in': lambda f, a: f.in_(a),
-        'not_in': lambda f, a: ~f.in_(a),
-        'any': lambda f, a: f.any(a),
-        'not_any': lambda f, a: func.not_(f.any(a)),
-        'INTERSECTS': lambda f, a: f.ST_Contains(a),
-        'DISJOINT': lambda f, a: f.ST_Disjoint(a),
-        'CONTAINS': lambda f, a: f.ST_Contains(a),
-        'WITHIN': lambda f, a: f.ST_Within(a),
-        'TOUCHES': lambda f, a: f.ST_Touches(a),
-        'CROSSES': lambda f, a: f.ST_Crosses(a),
-        'OVERLAPS': lambda f, a: f.ST_Overlaps(a),
-        'EQUALS': lambda f, a: f.ST_Equals(a),
-        'RELATE': lambda f, a, pattern: f.ST_Relate(a, pattern),
-        'DWITHIN': lambda f, a, distance: f.ST_Dwithin(a, distance),
-        'BEYOND': lambda f, a, distance: ~f.ST_Dwithin(a, distance),
+        "is_null": lambda f: f.is_(None),
+        "is_not_null": lambda f: f.isnot(None),
+        "==": lambda f, a: f == a,
+        "=": lambda f, a: f == a,
+        "eq": lambda f, a: f == a,
+        "!=": lambda f, a: f != a,
+        "ne": lambda f, a: f != a,
+        ">": lambda f, a: f > a,
+        "gt": lambda f, a: f > a,
+        "<": lambda f, a: f < a,
+        "lt": lambda f, a: f < a,
+        ">=": lambda f, a: f >= a,
+        "ge": lambda f, a: f >= a,
+        "<=": lambda f, a: f <= a,
+        "le": lambda f, a: f <= a,
+        "like": lambda f, a: f.like(a),
+        "ilike": lambda f, a: f.ilike(a),
+        "not_ilike": lambda f, a: ~f.ilike(a),
+        "in": lambda f, a: f.in_(a),
+        "not_in": lambda f, a: ~f.in_(a),
+        "any": lambda f, a: f.any(a),
+        "not_any": lambda f, a: func.not_(f.any(a)),
+        "INTERSECTS": lambda f, a: f.ST_Contains(a),
+        "DISJOINT": lambda f, a: f.ST_Disjoint(a),
+        "CONTAINS": lambda f, a: f.ST_Contains(a),
+        "WITHIN": lambda f, a: f.ST_Within(a),
+        "TOUCHES": lambda f, a: f.ST_Touches(a),
+        "CROSSES": lambda f, a: f.ST_Crosses(a),
+        "OVERLAPS": lambda f, a: f.ST_Overlaps(a),
+        "EQUALS": lambda f, a: f.ST_Equals(a),
+        "RELATE": lambda f, a, pattern: f.ST_Relate(a, pattern),
+        "DWITHIN": lambda f, a, distance: f.ST_Dwithin(a, distance),
+        "BEYOND": lambda f, a, distance: ~f.ST_Dwithin(a, distance),
+        "+": lambda f, a: f + a,
+        "-": lambda f, a: f - a,
+        "*": lambda f, a: f * a,
+        "/": lambda f, a: f / a,
     }
 
-    def __init__(self, operator=None):
+    def __init__(self, operator: str = None):
         if not operator:
-            operator = '=='
+            operator = "=="
 
         if operator not in self.OPERATORS:
-            raise Exception('Operator `{}` not valid.'.format(operator))
+            raise Exception("Operator `{}` not valid.".format(operator))
 
         self.operator = operator
         self.function = self.OPERATORS[operator]
         self.arity = len(signature(self.function).parameters)
 
 
-def combine(sub_filters, combinator="AND"):
+def combine(
+    sub_filters: List[Any], combinator: str = "AND"
+) -> Any:
     """ Combine filters using a logical combinator
 
         :param sub_filters: the filters to combine
         :param combinator: a string: "AND" / "OR"
-        :type sub_filters: list[django.db.models.Q]
         :return: the combined filter
-        :rtype: :class:`django.db.models.Q`
     """
     assert combinator in ("AND", "OR")
     op = and_ if combinator == "AND" else or_
+    print(type(sub_filters))
 
     def test(acc, q):
+        print(type(acc), type(q))
         return op(acc, q)
 
     return reduce(test, sub_filters)
@@ -124,38 +114,29 @@ def negate(sub_filter):
     """ Negate a filter, opposing its meaning.
 
         :param sub_filter: the filter to negate
-        :type sub_filter: :class:`django.db.models.Q`
         :return: the negated filter
-        :rtype: :class:`django.db.models.Q`
     """
     return not_(sub_filter)
 
 
-def compare(lhs, rhs, op, mapping_choices=None):
+def compare(
+    lhs, rhs, op: str
+):
     """ Compare a filter with an expression using a comparison operation
 
         :param lhs: the field to compare
-        :type lhs: :class:`django.db.models.F`
         :param rhs: the filter expression
-        :type rhs: :class:`django.db.models.F`
         :param op: a string denoting the operation. one of ``"<"``, ``"<="``,
                    ``">"``, ``">="``, ``"<>"``, ``"="``
-        :type op: str
-        :param mapping_choices: a dict to lookup potential choices for a certain
-                                field.
-        :type mapping_choices: dict[str, str]
         :return: a comparison expression object
-        :rtype: :class:`django.db.models.Q`
     """
-    comp = Operator(op)
+    _op = Operator(op)
+    print(type(lhs), type(rhs))
 
-    field_name = lhs
-
-    if comp.arity > 1:
-        # print('returning comparison function')
-        return comp.function(field_name, rhs)
+    if _op.arity > 1:
+        return _op.function(lhs, rhs)
     else:
-        return comp.function(field_name)
+        return _op.function(lhs)
 
 
 def between(lhs, low, high, negate=False):
@@ -174,11 +155,11 @@ def between(lhs, low, high, negate=False):
         :return: a comparison expression object
         :rtype: :class:`django.db.models.Q`
     """
-    l = Operator('<=')
-    g = Operator('>=')
+    l_op = Operator("<=")
+    g_op = Operator(">=")
     if negate:
-        return not_(and_(g.function(lhs, low),l.function(lhs, high)))
-    return and_(g.function(lhs, low),l.function(lhs, high))
+        return not_(and_(g_op.function(lhs, low), l_op.function(lhs, high)))
+    return and_(g_op.function(lhs, low), l_op.function(lhs, high))
 
 
 def like(lhs, rhs, case=False, negate=False, mapping_choices=None):
@@ -195,20 +176,20 @@ def like(lhs, rhs, case=False, negate=False, mapping_choices=None):
         :param not_: whether the range shall be inclusive (the default) or
                      exclusive
         :type not_: bool
-        :param mapping_choices: a dict to lookup potential choices for a certain
-                                field.
+        :param mapping_choices: a dict to lookup potential choices for a
+                                certain field.
         :type mapping_choices: dict[str, str]
         :return: a comparison expression object
         :rtype: :class:`django.db.models.Q`
     """
     if case:
-        op = Operator('like')
+        op = Operator("like")
     else:
-        op = Operator('ilike')
+        op = Operator("ilike")
 
     if negate:
-        return not_(op.function(lhs,rhs))
-    return op.function(lhs,rhs)
+        return not_(op.function(lhs, rhs))
+    return op.function(lhs, rhs)
 
 
 def contains(lhs, items, not_=False, mapping_choices=None):
@@ -221,16 +202,16 @@ def contains(lhs, items, not_=False, mapping_choices=None):
         :param not_: whether the range shall be inclusive (the default) or
                      exclusive
         :type not_: bool
-        :param mapping_choices: a dict to lookup potential choices for a certain
-                                field.
+        :param mapping_choices: a dict to lookup potential choices for a
+                                certain field.
         :type mapping_choices: dict[str, str]
         :return: a comparison expression object
         :rtype: :class:`django.db.models.Q`
     """
-    op = Operator('in')
+    op = Operator("in")
     if negate:
-        return not_(op.function(lhs,rhs))
-    return op.function(lhs,rhs)
+        return not_(op.function(lhs, items))
+    return op.function(lhs, items)
 
 
 def null(lhs, not_=False):
@@ -245,10 +226,10 @@ def null(lhs, not_=False):
         :rtype: :class:`django.db.models.Q`
     """
 
-    op = Operator('is_null')
+    op = Operator("is_null")
     if negate:
-        return not_(op.function(lhs,rhs))
-    return op.function(lhs,rhs)
+        return not_(op.function(lhs))
+    return op.function(lhs)
 
 
 def temporal(lhs, time_or_period, op):
@@ -267,9 +248,6 @@ def temporal(lhs, time_or_period, op):
         :return: a comparison expression object
         :rtype: :class:`django.db.models.Q`
     """
-    assert op in (
-        "BEFORE", "BEFORE OR DURING", "DURING", "DURING OR AFTER", "AFTER"
-    )
     low = None
     high = None
     if op in ("BEFORE", "AFTER"):
@@ -290,15 +268,12 @@ def temporal(lhs, time_or_period, op):
     if low and high:
         return between(lhs, low, high)
     elif low:
-        return compare(lhs, low, '>=')
+        return compare(lhs, low, ">=")
     else:
-        return compare(lhs, high, '<=')
+        return compare(lhs, high, "<=")
 
 
-UNITS_LOOKUP = {
-    "kilometers": "km",
-    "meters": "m"
-}
+UNITS_LOOKUP = {"kilometers": "km", "meters": "m"}
 
 
 def spatial(lhs, rhs, op, pattern=None, distance=None, units=None):
@@ -328,14 +303,13 @@ def spatial(lhs, rhs, op, pattern=None, distance=None, units=None):
     if op == "RELATE":
         return op_.function(lhs, rhs, pattern)
     elif op in ("DWITHIN", "BEYOND"):
-        if units == 'kilometers':
+        if units == "kilometers":
             distance = distance / 1000
-        elif units == 'miles':
+        elif units == "miles":
             distance = distance / 1609
         return op_.function(lhs, rhs, distance)
     else:
         return op_.function(lhs, rhs)
-
 
 
 def bbox(lhs, minx, miny, maxx, maxy, crs=4326, bboverlaps=True):
@@ -357,7 +331,9 @@ def bbox(lhs, minx, miny, maxx, maxy, crs=4326, bboverlaps=True):
         :rtype: :class:`django.db.models.Q`
     """
 
-    return lhs.ST_Intersects(func.ST_MakeEnvelope(minx, miny, maxx, maxy, crs).ST_Transform(4326))
+    return lhs.ST_Intersects(
+        func.ST_MakeEnvelope(minx, miny, maxx, maxy, crs).ST_Transform(4326)
+    )
 
 
 def attribute(name, model=None, field_mapping=None):
@@ -380,26 +356,16 @@ def literal(value):
     return value
 
 
-# OP_TO_FUNC = {
-#     "+": add,
-#     "-": sub,
-#     "*": mul,
-#     "/": truediv
-# }
+def arithmetic(lhs, rhs, op):
+    """ Create an arithmetic filter
 
+        :param lhs: left hand side of the arithmetic expression. either a
+                    scalar or a field lookup or another type of expression
+        :param rhs: same as `lhs`
+        :param op: the arithmetic operation. one of
+         ``"+"``, ``"-"``, ``"*"``, ``"/"``
+        :rtype: :class:`django.db.models.F`
+    """
 
-# def arithmetic(lhs, rhs, op):
-#     """ Create an arithmetic filter
-
-#         :param lhs: left hand side of the arithmetic expression. either a scalar
-#                     or a field lookup or another type of expression
-#         :param rhs: same as `lhs`
-#         :param op: the arithmetic operation. one of ``"+"``, ``"-"``, ``"*"``, ``"/"``
-#         :rtype: :class:`django.db.models.F`
-#     """
-
-#     assert isinstance(lhs, ARITHMETIC_TYPES), '%r is not a compatible type' % lhs
-#     assert isinstance(rhs, ARITHMETIC_TYPES), '%r is not a compatible type' % rhs
-#     assert op in OP_TO_FUNC
-#     func = OP_TO_FUNC[op]
-#     return func(lhs, rhs)
+    op_ = Operator(op)
+    return op_.function(lhs, rhs)
