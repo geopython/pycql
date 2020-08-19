@@ -61,11 +61,6 @@ class FilterEvaluator(object):
                 to_filter(node.lhs), to_filter(node.low), to_filter(node.high),
                 node.not_
             )
-        elif isinstance(node, BetweenPredicateNode):
-            return filters.between(
-                to_filter(node.lhs), to_filter(node.low), to_filter(node.high),
-                node.not_
-            )
         elif isinstance(node, LikePredicateNode):
             return filters.like(
                 to_filter(node.lhs), to_filter(node.rhs), node.case, node.not_,
