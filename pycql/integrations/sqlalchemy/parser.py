@@ -25,8 +25,8 @@
 # THE SOFTWARE.
 # ------------------------------------------------------------------------------
 
-from django.contrib.gis.geos import Polygon, MultiPolygon, GEOSGeometry
-from django.utils.dateparse import parse_datetime
+#from django.contrib.gis.geos import Polygon, MultiPolygon, GEOSGeometry
+#from django.utils.dateparse import parse_datetime
 
 from ...parser import parse as _plain_parse
 from ...util import parse_duration
@@ -39,9 +39,9 @@ def parse(cql):
         :param cql: the CQL expression string to parse
         :type cql: str
         :return: the parsed CQL expression as an AST
-        :rtype: ~pycql.ast.Node 
+        :rtype: ~pycql.ast.Node
     """
     return _plain_parse(
-        cql, GEOSGeometry, Polygon.from_bbox, parse_datetime,
+        cql,
         parse_duration
     )

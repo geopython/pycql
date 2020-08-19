@@ -38,7 +38,8 @@ from ...ast import (
 
 
 class FilterEvaluator(object):
-    def __init__(self, field_mapping=None, mapping_choices=None):
+    def __init__(self, model=None, field_mapping=None, mapping_choices=None):
+        self.model = model
         self.field_mapping = field_mapping
         self.mapping_choices = mapping_choices
 
@@ -102,7 +103,7 @@ class FilterEvaluator(object):
                 to_filter(node.crs)
             )
         elif isinstance(node, AttributeExpression):
-            return filters.attribute(node.name, self.field_mapping)
+            return filters.attribute(node.name, self.model, self.field_mapping)
 
         elif isinstance(node, LiteralExpression):
             return node.value
@@ -115,7 +116,7 @@ class FilterEvaluator(object):
         return node
 
 
-def to_filter(ast, field_mapping=None, mapping_choices=None):
+def to_filter(ast, model=None, field_mapping=None, mapping_choices=None):
     """ Helper function to translate ECQL AST to Django Query expressions.
 
         :param ast: the abstract syntax tree
@@ -126,4 +127,4 @@ def to_filter(ast, field_mapping=None, mapping_choices=None):
         :returns: a Django query object
         :rtype: :class:`django.db.models.Q`
     """
-    return FilterEvaluator(field_mapping, mapping_choices).to_filter(ast)
+    return FilterEvaluator(model, field_mapping, mapping_choices).to_filter(ast)
