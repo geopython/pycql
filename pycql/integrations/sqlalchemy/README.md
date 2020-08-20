@@ -75,3 +75,10 @@ filters = to_filter(ast, FIELD_MAPPING)
 
 q = session.query(Record).join(RecordMeta).filter(filters)
 ```
+
+## Tests
+Tests for the sqlalchemy integration can be run as following:
+
+```shell
+python -m unittest discover tests/sqlalchemy_test/ tests.py
+```
