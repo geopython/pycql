@@ -1,35 +1,29 @@
-# ------------------------------------------------------------------------------
-#
-# Project: pycql <https://github.com/geopython/pycql>
-# Authors: Fabian Schindler <fabian.schindler@eox.at>
-#
-# ------------------------------------------------------------------------------
-# Copyright (C) 2019 EOX IT Services GmbH
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in all
-# copies of this Software or works derived from this Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
-# ------------------------------------------------------------------------------
-
-#from django.contrib.gis.geos import Polygon, MultiPolygon, GEOSGeometry
-#from django.utils.dateparse import parse_datetime
-
 from ...parser import parse as _plain_parse
 from ...util import parse_duration
+from dateparser import parse as parse_datetime
+from sqlalchemy import func
+import re
+
+
+def parse_geometry(geom):
+    print("PARSE GEOM", geom)
+    search = re.search(r"SRID=(\d+);", geom)
+
+    sridtxt = "" if search else "SRID=4326;"
+    print(f"{sridtxt}{geom}")
+
+    return func.ST_GeomFromEWKT(f"{sridtxt}{geom}")
+
+
+def parse_bbox(box, srid: int=4326):
+    print("PARSE BBOX", type(box), box)
+    minx, miny, maxx, maxy = box
+    return func.ST_GeomFromEWKT(
+        f"SRID={srid};POLYGON(("
+        f"{minx} {miny}, {minx} {maxy}, "
+        f"{maxx} {maxy}, {maxx} {miny}, "
+        f"{minx} {miny}))"
+    )
 
 
 def parse(cql):
@@ -43,5 +37,8 @@ def parse(cql):
     """
     return _plain_parse(
         cql,
-        parse_duration
+        geometry_factory=parse_geometry,
+        bbox_factory=parse_bbox,
+        time_factory=parse_datetime,
+        duration_factory=parse_duration,
     )
