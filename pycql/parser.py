@@ -25,11 +25,15 @@
 # THE SOFTWARE.
 # ------------------------------------------------------------------------------
 
+import logging
+
 from ply import yacc
 
 from .lexer import CQLLexer
 from . import ast
 from . import values
+
+LOGGER = logging.getLogger(__name__)
 
 
 class CQLParser(object):
@@ -260,18 +264,18 @@ class CQLParser(object):
 
     def p_error(self, p):
         if p:
-            print(dir(p))
-            print("Syntax error at token", p.type, p.value, p.lexpos, p.lineno)
+            LOGGER.debug(dir(p))
+            LOGGER.debug(f"Syntax error at token {p.type}, {p.value}, {p.lexpos}, {p.lineno}")
 
-            print(self.__query.split('\n'))
+            LOGGER.debug(self.__query.split('\n'))
             line = self.__query.split('\n')[p.lineno - 1]
-            print(line)
-            print((' ' * p.lexpos) + '^')
+            LOGGER.debug(line)
+            LOGGER.debug((' ' * p.lexpos) + '^')
 
             # Just discard the token and tell the parser it's okay.
             #p.parser.errok()
         else:
-            print("Syntax error at EOF")
+            LOGGER.debug("Syntax error at EOF")
 
 
 def parse(cql, geometry_factory=values.Geometry, bbox_factory=values.BBox,
