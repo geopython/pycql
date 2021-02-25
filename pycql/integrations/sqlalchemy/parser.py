@@ -1,22 +1,27 @@
+
+import logging
+import re
+
 from ...parser import parse as _plain_parse
 from ...util import parse_duration
 from dateparser import parse as parse_datetime
 from sqlalchemy import func
-import re
+
+LOGGER = logging.getLogger(__name__)
 
 
 def parse_geometry(geom):
-    print("PARSE GEOM", geom)
+    LOGGER.debug(f"PARSE GEOM: {geom}")
     search = re.search(r"SRID=(\d+);", geom)
 
     sridtxt = "" if search else "SRID=4326;"
-    print(f"{sridtxt}{geom}")
+    LOGGER.debug(f"{sridtxt}{geom}")
 
     return func.ST_GeomFromEWKT(f"{sridtxt}{geom}")
 
 
 def parse_bbox(box, srid: int=4326):
-    print("PARSE BBOX", type(box), box)
+    LOGGER.debug("PARSE BBOX: {type(box)}, {box}")
     minx, miny, maxx, maxy = box
     return func.ST_GeomFromEWKT(
         f"SRID={srid};POLYGON(("

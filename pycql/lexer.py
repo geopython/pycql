@@ -25,11 +25,14 @@
 # THE SOFTWARE.
 # ------------------------------------------------------------------------------
 
+import logging
 
 from ply import lex
 from ply.lex import TOKEN
 
 from . import values
+
+LOGGER = logging.getLogger(__name__)
 
 
 class CQLLexer(object):
@@ -217,4 +220,4 @@ class CQLLexer(object):
     t_ignore = ' \t'
 
     def t_error(self, t):
-        print("ERROR", t)
+        LOGGER.debug(t)
