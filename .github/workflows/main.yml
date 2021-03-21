@@ -1,0 +1,34 @@
+name: build ⚙️
+
+on: [ push, pull_request ]
+
+jobs:
+  main:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        python-version: [3.6, 3.7]
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+      name: Setup Python ${{ matrix.python-version }}
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install requirements 📦
+      run: |
+        sudo apt-get install -y binutils libproj-dev gdal-bin libsqlite3-mod-spatialite spatialite-bin
+        pip install -r requirements.txt
+        pip install -r requirements-test.txt
+        pip install .
+    - name: run unit tests ⚙️
+      run: |
+        pytest
+        cd tests/django_test ; python manage.py test testapp ; cd -
+    - name: Publish package
+      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        user: __token__
+        password:     secure: tfOFVVN3Po7iDeOhHOisI2E0FEH2UoeFJzxE8WY7ZV/FyHnQfKMYbxvjougeqIQ+Zs467KlpkbwHbqpmtXYlW28UqvszsIEwcJTUTxMNj78gP6SnYFWUa5pHJPaI82KFHuFe6hUrHZKL6kep+5Ed9yee5P4RH+92NoZQDE5nE2dB43U5miflpV9TL2hHFjVeQFrJnOr2fR0YmDXSqY95FhxD3oVFomB+U1dMLER4LqqzvdxjdSD8qzmAcqsUg40d9+6t9zxP3yBbAMHkIH1gPK4JfotmwDT7EPZCoA/QHvgM7/vk7rIIv4ZDSzOxNPbjpW+vNtm4xNdTN1bVGCvHA2xmdGDa48xzsYJRmQ2+bPgRWQ2KamfB+0GsOoT1j4TrT2dyLUYV7V1Mpl46y8DRHfEwQzs2zFm+MUkeSzjW1AszfJ1WvJVop3J7a9HHAvkfwcUt++ADJLBI3loRfa7BJt9d24Q4Pahsv80TcC4+RCZj3FUW4o6es87K4Z5ao3Vr66voWMfpv8l08jLyE4TaoUW2l/XdN+icrA/lRY7fzEw99b6gJgWaod7+n68qtd9Ofbq6SfqTi82K56GFPFynDb6Q98pcwmH3Vj6Y1e7uRUOkqhh32tq55G3i6ypOOGB0UASUfimoDRh+6GqWu3VGRBqNnd+nGctSASRKycZr/tY=
+
+
