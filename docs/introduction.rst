@@ -2,7 +2,7 @@ Introduction
 ============
 
 pycql is a pure python parser of the Common Query Language (CQL) defined in the
-`OGC Catalogue specification <http://docs.opengeospatial.org/is/12-168r6/12-168r6.html>`_.
+`OGC Catalogue specification <https://docs.opengeospatial.org/is/12-168r6/12-168r6.html>`_.
 
 The basic bare-bone functionality is to parse the given CQL to an abstract
 syntax tree (AST) representation. This AST can then be used to create filters

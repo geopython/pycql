@@ -4,7 +4,7 @@
 #
 # This file does only contain a selection of the most common options. For a
 # full list see the documentation:
-# http://www.sphinx-doc.org/en/master/config
+# https://www.sphinx-doc.org/en/master/usage/configuration.html
 
 # -- Path setup --------------------------------------------------------------
 
@@ -179,6 +179,6 @@ epub_exclude_files = ['search.html']
 
 
 intersphinx_mapping = {
-    'python': ('http://python.readthedocs.org/en/latest/', None),
-    'django': ('http://django.readthedocs.org/en/latest/', None),
+    'python': ('https://python.readthedocs.org/en/latest/', None),
+    'django': ('https://django.readthedocs.org/en/latest/', None),
 }
