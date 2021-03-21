@@ -1,7 +1,7 @@
 # pycql
 
 [![PyPI version](https://badge.fury.io/py/pycql.svg)](https://badge.fury.io/py/pycql)
-[![Build Status](https://travis-ci.org/geopython/pycql.svg?branch=master)](https://travis-ci.org/geopython/pycql)
+[![Build Status](https://github.com/geopython/pycql/workflows/build%20%E2%9A%99%EF%B8%8F/badge.svg)](https://github.com/geopython/pycql/actions)
 [![Documentation Status](https://readthedocs.org/projects/pycql/badge/?version=latest)](https://pycql.readthedocs.io/en/latest/?badge=latest)
 
 
