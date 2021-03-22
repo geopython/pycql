@@ -29,7 +29,7 @@
 """
 
 
-class Node(object):
+class Node:
     """ The base class for all other nodes to display the AST of CQL.
     """
     inline = False

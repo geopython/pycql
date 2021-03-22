@@ -36,7 +36,7 @@ from . import values
 LOGGER = logging.getLogger(__name__)
 
 
-class CQLParser(object):
+class CQLParser:
     def __init__(self, geometry_factory=values.Geometry, bbox_factory=values.BBox,
                  time_factory=values.Time, duration_factory=values.Duration):
         self.lexer = CQLLexer(

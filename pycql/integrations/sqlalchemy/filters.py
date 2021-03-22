@@ -8,7 +8,7 @@ from .parser import parse_bbox
 # ------------------------------------------------------------------------------
 # Filters
 # ------------------------------------------------------------------------------
-class Operator(object):
+class Operator:
 
     OPERATORS = {
         "is_null": lambda f, a=None: f.is_(None),

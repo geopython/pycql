@@ -37,7 +37,7 @@ from ...ast import (
 )
 
 
-class FilterEvaluator(object):
+class FilterEvaluator:
     def __init__(self, field_mapping=None, mapping_choices=None):
         self.field_mapping = field_mapping
         self.mapping_choices = mapping_choices

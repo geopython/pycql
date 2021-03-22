@@ -58,7 +58,7 @@ def parse_requirements(file):
 setup(
     name='pycql',
     version=version,
-    description='CQL parser for Python',
+    description='pycql is a pure Python parser implementation of the OGC CQL standard',
     long_description=readme,
     long_description_content_type="text/markdown",
     author='Fabian Schindler',

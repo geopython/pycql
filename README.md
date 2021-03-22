@@ -4,8 +4,7 @@
 [![Build Status](https://github.com/geopython/pycql/workflows/build%20%E2%9A%99%EF%B8%8F/badge.svg)](https://github.com/geopython/pycql/actions)
 [![Documentation Status](https://readthedocs.org/projects/pycql/badge/?version=latest)](https://pycql.readthedocs.io/en/latest/?badge=latest)
 
-
-A pure python CQL parser.
+pycql is a pure Python parser implementation of the OGC CQL standard
 
 ## Installation
 
@@ -61,7 +60,7 @@ from pycql.ast import *
 from myapi import filters   # <- this is where the filters are created.
                             # of course, this can also be done in the
                             # evaluator itself
-class FilterEvaluator(object):
+class FilterEvaluator:
     def __init__(self, field_mapping=None, mapping_choices=None):
         self.field_mapping = field_mapping
         self.mapping_choices = mapping_choices

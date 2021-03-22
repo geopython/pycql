@@ -56,7 +56,7 @@ like this:
     from myapi import filters   # <- this is where the filters are created.
                                 # of course, this can also be done in the
                                 # evaluator itself
-    class FilterEvaluator(object):
+    class FilterEvaluator:
         def __init__(self, field_mapping=None, mapping_choices=None):
             self.field_mapping = field_mapping
             self.mapping_choices = mapping_choices
