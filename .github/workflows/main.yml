@@ -21,14 +21,20 @@ jobs:
         pip install -r requirements-test.txt
         pip install -r requirements-dev.txt
         pip install .
-    - name: run unit tests ⚙️
+    - name: Run unit tests ⚙️
       run: |
         pytest
-        cd tests/django_test ; python manage.py test testapp ; cd -
+        cd tests/django_test
+        python manage.py test testapp
   publish:
     runs-on: ubuntu-20.04
     needs: test
     steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+      name: Setup Python
+      with:
+        python-version: "3.x"
     - name: Build package 🏗️
       run: python setup.py sdist bdist_wheel --universal
     - name: Publish package
