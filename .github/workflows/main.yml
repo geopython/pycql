@@ -35,6 +35,8 @@ jobs:
       name: Setup Python
       with:
         python-version: "3.x"
+    - name: Install build dependency
+      run: pip install wheel
     - name: Build package 🏗️
       run: python setup.py sdist bdist_wheel --universal
     - name: Publish package
