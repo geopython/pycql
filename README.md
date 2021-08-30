@@ -1,3 +1,14 @@
+-------
+-------
+
+
+# DEPRECATED
+
+This project is superseded by [pygeofilter](https://github.com/geopython/pygeofilter).
+
+-------
+-------
+
 # pycql
 
 [![PyPI version](https://badge.fury.io/py/pycql.svg)](https://badge.fury.io/py/pycql)
